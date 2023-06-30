@@ -14,14 +14,6 @@ Backend:
 - ExpressJs
 - NodeJS
 - MongoDB
-
-## Run Locally
-
-## Installation
-
-Install Node.js:
-
-https://nodejs.org/en/
     
 ## Run Locally
 
