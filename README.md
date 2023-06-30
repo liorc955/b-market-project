@@ -20,10 +20,10 @@ Backend:
 Clone the project
 
 ```bash
-  git clone https://github.com/liorc955/Swag-Labs-Cypress-Project.git
+  git clone https://github.com/liorc955/b-market-project.git
 ```
 
-Go to the project directory
+Go to the project directories:
 
 ```bash
   cd frontend
