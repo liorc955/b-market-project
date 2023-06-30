@@ -1,0 +1,27 @@
+.checkout-outer {
+    margin: 8%;
+  }
+  
+  .checkout-container {
+    display: flex;
+  }
+  
+  .checkout-container ul {
+    flex: 1;
+    list-style-type: none;
+    padding: 0;
+    width: 684.985px;
+    height: 481.161px;
+    max-height: 481.161px;;
+      overflow-y: scroll;
+  }
+  
+  .checkout-container ul::-webkit-scrollbar {
+      width: 6px;
+      background-color: #F5F5F5;
+  }
+  
+  .checkout-container ul::-webkit-scrollbar-thumb {
+      background-color: #adadad;
+  }
+  

@@ -1,0 +1,13 @@
+.container {
+    text-align: center;
+    padding-top: 4%;
+}
+
+.container span {
+    color: green;
+    font-size: 32px;
+}
+
+.container img {
+    width: 30%;
+}

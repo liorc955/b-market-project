@@ -1,0 +1,7 @@
+.product-outer {
+    margin: 10%;
+  }
+  
+  .product-container {
+    display: flex;
+  }

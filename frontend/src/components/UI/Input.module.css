@@ -1,0 +1,17 @@
+.input-group {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  
+  .input-group input {
+    width: 50px;
+    padding: 5px;
+    text-align: right;
+    border: none;
+  }
+
+  .input-group input:disabled {
+    background-color: #ffffff;
+  }
+  
