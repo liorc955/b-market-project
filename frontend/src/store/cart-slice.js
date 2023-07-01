@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { SERVER_URL } from "../envConfig";
 
 const initialState = {
   itemsInCart: [],
@@ -61,9 +62,8 @@ const cartSlice = createSlice({
 
 export const fetchItemsCart = (setIsThereError) => {
   return async (dispatch) => {
-    console.log(process.env.SERVER_URL)
     try {
-      const response = await fetch(`${process.env.SERVER_URL}/cartitems`);
+      const response = await fetch(`${SERVER_URL}/cartitems`);
       if (!response.ok) throw new Error("status code: " + response.status);
       setIsThereError(false);
       let data = await response.json();
@@ -85,7 +85,7 @@ export const fetchItemsCart = (setIsThereError) => {
 export const updateItemsCart = (data, setIsThereError) => {
   return async () => {
     try {
-      const response = await fetch(`${process.env.SERVER_URL}/cartitems`, {
+      const response = await fetch(`${SERVER_URL}/cartitems`, {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {

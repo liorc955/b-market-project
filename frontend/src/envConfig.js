@@ -1,0 +1,1 @@
+export const SERVER_URL="https://b-market-project-q2iqz206y-liorc955.vercel.app";

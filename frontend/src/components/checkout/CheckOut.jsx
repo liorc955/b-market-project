@@ -9,6 +9,7 @@ import checkOutLogo from "./../../img/checkoutLogo.webp";
 import { cartSliceActions } from "../../store/cart-slice";
 import OrderSubmitted from "../order/OrderSubmitted";
 import classes from "./CheckOut.module.css";
+import { SERVER_URL } from "../../envConfig";
 
 const CheckOut = () => {
   const [items, isThereErrorOnGet] = useCartState();
@@ -25,7 +26,7 @@ const CheckOut = () => {
     try {
       setIsThereErrorOnPost(false);
 
-      const response = await fetch(`${process.env.SERVER_URL}/orders`, {
+      const response = await fetch(`${SERVER_URL}/orders`, {
         method: "POST",
         body: JSON.stringify(orderPayLoad),
         headers: {

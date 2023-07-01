@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import classes from "./ProductList.module.css";
 import Error from "../UI/Error.js";
+import { SERVER_URL } from "../../envConfig";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ const ProductList = () => {
 
   const fetchProductList = useCallback(async () => {
     try {
-      const response = await fetch(`${process.env.SERVER_URL}/products/`);
+      const response = await fetch(`${SERVER_URL}/products/`);
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }

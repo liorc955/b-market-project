@@ -1,5 +1,6 @@
 import { json } from "react-router-dom";
 import ProductInfo from "../components/product/ProductInfo";
+import { SERVER_URL } from "../envConfig";
 
 
 const ProductPage = () => {
@@ -13,7 +14,7 @@ export const productLoader = async ({ req, params }) => {
 
   try {
     const response = await fetch(
-      `${process.env.SERVER_URL}/products/${productId}`
+      `${SERVER_URL}/products/${productId}`
     );
     if (!response.ok) throw new Error('Cound not fetch the product info.');
     const data = await response.json();
