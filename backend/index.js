@@ -9,6 +9,10 @@ require("./db");
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res)=>{
+  res.send("<h1>The server is up and running!</h1>")
+})
+
 app.get("/products", async (req, res) => {
   try {
     const data = await Product.find();
