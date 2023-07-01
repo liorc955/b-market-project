@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+
 import Card from "../UI/Card";
 import classes from "./ProductInfo.module.css";
 import ProductImg from "../product/ProductImg";
@@ -6,15 +6,14 @@ import Input from "../UI/Input";
 import { useCallback, useRef } from "react";
 import AddToCartBtn from "../UI/AddToCartBtn";
 import { useDispatch } from "react-redux";
-import veganImg from '../../img/vegan.png';
+import veganImg from "../../img/vegan.png";
 import { cartSliceActions } from "../../store/cart-slice";
 
-const ProductInfo = () => {
-  const proudct = useLoaderData();
+const ProductInfo = (props) => {
   const counterInputRef = useRef();
   const dispatch = useDispatch();
-
-  let { description } = proudct;
+  const product = props.product;
+  let { description } = product;
 
   description = description.substring(0, description.indexOf(".") + 1);
 
@@ -22,31 +21,38 @@ const ProductInfo = () => {
     dispatch(
       cartSliceActions.addItemToCart({
         item: {
-          productId: proudct.id,
-          title: proudct.title,
-          price: proudct.price,
+          productId: product.id,
+          title: product.title,
+          price: product.price,
           description: description,
-          image: proudct.image,
+          image: product.image,
           quantity: +counterInputRef.current.value,
         },
       })
     );
-  }, [description, dispatch, proudct.id, proudct.image, proudct.price, proudct.title]);
+  }, [
+    description,
+    dispatch,
+    product.id,
+    product.image,
+    product.price,
+    product.title,
+  ]);
 
   return (
     <div className={classes["product-outer"]}>
       <Card className={classes["product-container"]}>
-        <ProductImg alt={proudct.title} src={proudct.image} />
+        <ProductImg alt={product.title} src={product.image} />
         <div>
-          <h1>{proudct.title}</h1>
-          <p>{proudct.description}</p>
-          <p style={{ fontWeight: "bold" }}>Price: {proudct.price}$</p>
+          <h1>{product.title}</h1>
+          <p>{product.description}</p>
+          <p style={{ fontWeight: "bold" }}>Price: {product.price}$</p>
           <Input inputRef={counterInputRef} />
           <AddToCartBtn onAddItem={addProductToCart} />
         </div>
         <img
           style={{ height: "80px", width: "80px" }}
-          alt='vegan product'
+          alt="vegan product"
           src={veganImg}
         ></img>
       </Card>

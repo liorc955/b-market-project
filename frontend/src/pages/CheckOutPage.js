@@ -1,7 +1,7 @@
-
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CheckOut from "../components/checkout/CheckOut";
+import Head from "../Head";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();
@@ -15,7 +15,12 @@ const CheckOutPage = () => {
     };
   }, [navigate]);
 
-  return <CheckOut />;
+  return (
+    <>
+      <Head title="CheckOut" description="CheckOut page" />
+      <CheckOut />
+    </>
+  );
 };
 
 export default CheckOutPage;

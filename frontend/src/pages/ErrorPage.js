@@ -1,14 +1,15 @@
 import { useRouteError } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
-import classes from './ErrorPage.module.css';
-import errorImg from '../img/error.png';
+import classes from "./ErrorPage.module.css";
+import errorImg from "../img/error.png";
+import Head from "../Head";
 
 const ErrorPage = () => {
   const error = useRouteError();
   let title = "An Error Occured";
   let message = "Something Went Wrong!";
   const status = error.status;
-  console.log(error)
+  console.log(error);
 
   if (status === 500) {
     message = error.data.message;
@@ -20,6 +21,7 @@ const ErrorPage = () => {
 
   return (
     <>
+      <Head title={title} description={message} />
       <MainNavigation />
       <div className={classes.container}>
         <h1>{title}</h1>
