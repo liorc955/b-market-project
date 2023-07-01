@@ -61,8 +61,9 @@ const cartSlice = createSlice({
 
 export const fetchItemsCart = (setIsThereError) => {
   return async (dispatch) => {
+    console.log(process.env.SERVER_URL)
     try {
-      const response = await fetch("http://127.0.0.1:8080/cartitems");
+      const response = await fetch(`${process.env.SERVER_URL}/cartitems`);
       if (!response.ok) throw new Error("status code: " + response.status);
       setIsThereError(false);
       let data = await response.json();
@@ -84,7 +85,7 @@ export const fetchItemsCart = (setIsThereError) => {
 export const updateItemsCart = (data, setIsThereError) => {
   return async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8080/cartitems", {
+      const response = await fetch(`${process.env.SERVER_URL}/cartitems`, {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {

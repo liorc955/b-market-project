@@ -13,7 +13,7 @@ export const productLoader = async ({ req, params }) => {
 
   try {
     const response = await fetch(
-      `http://127.0.0.1:8080/products/${productId}`
+      `${process.env.SERVER_URL}/products/${productId}`
     );
     if (!response.ok) throw new Error('Cound not fetch the product info.');
     const data = await response.json();

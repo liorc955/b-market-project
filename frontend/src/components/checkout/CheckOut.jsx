@@ -25,7 +25,7 @@ const CheckOut = () => {
     try {
       setIsThereErrorOnPost(false);
 
-      const response = await fetch("http://127.0.0.1:8080/orders", {
+      const response = await fetch(`${process.env.SERVER_URL}/orders`, {
         method: "POST",
         body: JSON.stringify(orderPayLoad),
         headers: {
