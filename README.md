@@ -1,7 +1,8 @@
 
 # B-Market WebSite project
 
-In this project, I built a simple E-commerce web site called B-Market using the stack:
+In this project, I built a simple E-commerce website called B-Market using the stack:
+
 Frontend:
 - HTML
 - CSS
