@@ -23,7 +23,7 @@ const CartItems = (props) => {
 
   if (props.items.length > 0) {
     CartItemsBody = (
-      <div>
+      <div className={props.className}>
         <TransitionGroup component="ul" className="ps-0">
           {props.items.map((item) => (
             <Collapse key={item.productId}>
@@ -37,7 +37,7 @@ const CartItems = (props) => {
             </Collapse>
           ))}
         </TransitionGroup>
-        <p className="fw-bold ps-0">Total Price: {totalAmount.toFixed(2)}</p>
+        <p className="fw-bold ps-0">Total Price: {totalAmount.toFixed(2)}$</p>
       </div>
     );
   }

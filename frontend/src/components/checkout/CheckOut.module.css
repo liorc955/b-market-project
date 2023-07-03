@@ -4,21 +4,27 @@
 
 .checkout-container {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.item-group {
+  width: 684.985px;
 }
 
 .checkout-container ul {
   flex: 1;
   list-style-type: none;
   padding: 0;
-  width: 684.985px;
-  height: 481.161px;
   max-height: 481.161px;
   overflow-y: scroll;
 }
 
+.checkout-container form {
+  flex: 1;
+}
+
 .checkout-container ul::-webkit-scrollbar {
   width: 6px;
-  background-color: #f5f5f5;
 }
 
 .checkout-container ul::-webkit-scrollbar-thumb {

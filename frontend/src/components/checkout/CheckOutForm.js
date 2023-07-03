@@ -113,7 +113,7 @@ const CheckOutForm = (props) => {
           />
         </Form.Group>
         <div className="text-center">
-          <Button disabled={props.isThereError} type="submit">
+          <Button disabled={props.isErrorOnGet} type="submit">
             Place Order
           </Button>
           {props.isErrorOnPost && (

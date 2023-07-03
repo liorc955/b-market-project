@@ -51,7 +51,7 @@ const CheckOut = () => {
         {isThereErrorOnGet ? (
           <Error />
         ) : (
-          <CartItems items={items} isCheckOutPage={true} />
+          <CartItems className={classes['item-group']} items={items} isCheckOutPage={true} />
         )}
         <CheckOutForm
           isErrorOnPost={isThereErrorOnPost}
