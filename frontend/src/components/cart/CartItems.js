@@ -1,17 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import { cartSliceActions } from "../../store/cart-slice";
-import classes from "./CartItems.module.css";
+import { TransitionGroup } from 'react-transition-group';
+import Collapse from '@mui/material/Collapse';
 
 const CartItems = (props) => {
   const dispatch = useDispatch();
   const totalAmount = useSelector((state) => state.totalAmount);
-  let CartItemsBody = <ul className="ps-0 text-center"><h5>Loading Items...</h5></ul>;
+  let CartItemsBody = (
+    <ul className="ps-0 text-center">
+      <h5>Loading Items...</h5>
+    </ul>
+  );
 
   const handleAddingQuantity = (productId) => {
-    dispatch(
-      cartSliceActions.addItemToCart({ item: { productId } })
-    );
+    dispatch(cartSliceActions.addItemToCart({ item: { productId } }));
   };
 
   const handleRemovingQuantity = (productId) => {
@@ -20,23 +23,22 @@ const CartItems = (props) => {
 
   if (props.items.length > 0) {
     CartItemsBody = (
-      <>
-        <ul className="ps-0">
+      <div>
+        <TransitionGroup component="ul" className="ps-0">
           {props.items.map((item) => (
-            <CartItem
-              isCheckOutPage={props.isCheckOutPage}
-              key={item.productId}
-              {...item}
-              image={item.image}
-              onAddItem={handleAddingQuantity.bind(null, item.productId)}
-              onRemoveItem={handleRemovingQuantity.bind(null, item.productId)}
-            />
+            <Collapse key={item.productId}>
+              <CartItem
+                isCheckOutPage={props.isCheckOutPage}
+                {...item}
+                image={item.image}
+                onAddItem={handleAddingQuantity.bind(null, item.productId)}
+                onRemoveItem={handleRemovingQuantity.bind(null, item.productId)}
+              />
+            </Collapse>
           ))}
-          <p className={classes["total-price"]}>
-            Total Price: {totalAmount.toFixed(2)}
-          </p>
-        </ul>
-      </>
+        </TransitionGroup>
+        <p className="fw-bold ps-0">Total Price: {totalAmount.toFixed(2)}</p>
+      </div>
     );
   }
 

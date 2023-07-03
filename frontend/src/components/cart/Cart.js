@@ -4,32 +4,39 @@ import CartItems from "./CartItems";
 import classes from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
 import Error from "../UI/Error";
+import Fade from "@mui/material/Fade";
 
 const Cart = (props) => {
   const navigate = useNavigate();
 
-  let cartBody = <h5>No Items In Cart!</h5>;
-
   const moveToCheckOutPage = () => {
     navigate("/checkout");
-    localStorage.setItem('isCheckOutBtnClicked', true);
+    localStorage.setItem("isCheckOutBtnClicked", true);
   };
+
+  let animateCondition = props.items.length > 0 && !props.isThereError;
+
+  let cartBody = (
+    <div>
+      <CartItems items={props.items} />
+      <button onClick={moveToCheckOutPage} className={classes.button}>
+        Checkout
+      </button>
+    </div>
+  );
+
+  if (!animateCondition) {
+    cartBody = <h5>No Items In Cart!</h5>;
+    animateCondition = !animateCondition;
+  }
 
   if (props.isThereError) {
     cartBody = (
-      <Error />
+      <div>
+        <Error />
+      </div>
     );
-  }
-
-  if (props.items.length > 0 && !props.isThereError) {
-    cartBody = (
-      <>
-        <CartItems items={props.items} />
-        <button onClick={moveToCheckOutPage} className={classes.button}>
-          Checkout
-        </button>
-      </>
-    );
+    animateCondition = props.isThereError;
   }
 
   const expand = props.expand;
@@ -44,7 +51,11 @@ const Cart = (props) => {
           Cart Items
         </Offcanvas.Title>
       </Offcanvas.Header>
-      <Offcanvas.Body>{cartBody}</Offcanvas.Body>
+      <Offcanvas.Body>
+        <Fade timeout={700} in={animateCondition}>
+          {cartBody}
+        </Fade>
+      </Offcanvas.Body>
     </Navbar.Offcanvas>
   );
 };

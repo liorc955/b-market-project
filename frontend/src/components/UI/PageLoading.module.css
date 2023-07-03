@@ -1,0 +1,9 @@
+.loading {
+    text-align: center;
+    margin-top: 250px;
+}
+
+.loading img {
+    width: 10%;
+    height: 10%;
+}
