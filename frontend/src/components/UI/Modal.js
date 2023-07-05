@@ -1,14 +1,13 @@
 
 import ReactDOM from 'react-dom';
 import classes from "./Modal.module.css";
-import Card from "./Card";
 
 const BackDrop = () => {
   return <div className={classes.backdrop}></div>;
 };
 
 const OverLay = (props) => {
-  return <Card className={classes.modal}>{props.children}</Card>;
+  return <div className={classes.modal}>{props.children}</div>;
 };
 
 const Modal = (props) => {
