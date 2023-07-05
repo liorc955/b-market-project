@@ -43,7 +43,6 @@ const CheckOutForm = (props) => {
             <Form.Label>First name</Form.Label>
             <Form.Control
               ref={firstNameRef}
-              disabled={props.isErrorOnGet}
               required
               type="text"
               placeholder="First name"
@@ -54,7 +53,6 @@ const CheckOutForm = (props) => {
             <Form.Label>Last name</Form.Label>
             <Form.Control
               ref={lastNameRef}
-              disabled={props.isErrorOnGet}
               required
               type="text"
               placeholder="Last name"
@@ -67,7 +65,6 @@ const CheckOutForm = (props) => {
             <Form.Label>City</Form.Label>
             <Form.Control
               ref={cityRef}
-              disabled={props.isErrorOnGet}
               type="text"
               placeholder="City"
               required
@@ -80,7 +77,6 @@ const CheckOutForm = (props) => {
             <Form.Label>State</Form.Label>
             <Form.Control
               ref={stateRef}
-              disabled={props.isErrorOnGet}
               type="text"
               placeholder="State"
               required
@@ -92,7 +88,6 @@ const CheckOutForm = (props) => {
           <Form.Group as={Col} md="3" controlId="validationCustom05">
             <Form.Label>Zip</Form.Label>
             <Form.Control
-              disabled={props.isErrorOnGet}
               ref={zipRef}
               type="text"
               placeholder="Zip"
@@ -106,14 +101,13 @@ const CheckOutForm = (props) => {
         <Form.Group className={formGroupClass}>
           <Form.Check
             required
-            disabled={props.isErrorOnGet}
             label="Agree to terms and conditions"
             feedback="You must agree before submitting."
             feedbackType="invalid"
           />
         </Form.Group>
         <div className="text-center">
-          <Button disabled={props.isErrorOnGet} type="submit">
+          <Button type="submit">
             Place Order
           </Button>
           {props.isErrorOnPost && (

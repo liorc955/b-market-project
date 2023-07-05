@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsCart, updateItemsCart } from "../store/cart-slice";
 
@@ -6,22 +6,21 @@ let componentDidMount = false;
 
 const useCartState = () => {
   const items = useSelector((state) => state.itemsInCart);
-  const [isThereError, setIsThereError] = useState(false);
   const isCartStateChanged = useSelector((state) => state.isCartStateChanged);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchItemsCart(setIsThereError));
+    dispatch(fetchItemsCart());
   }, [dispatch]);
 
   useEffect(() => {
     if (componentDidMount && isCartStateChanged) {
-      dispatch(updateItemsCart(items, setIsThereError));
+      dispatch(updateItemsCart(items));
     }
     componentDidMount = true;
   }, [dispatch, items, isCartStateChanged]);
 
-  return [items ,isThereError];
+  return items;
 };
 
 export default useCartState;

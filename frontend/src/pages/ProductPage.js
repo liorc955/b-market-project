@@ -1,7 +1,7 @@
 import { json, useLoaderData } from "react-router-dom";
 import ProductInfo from "../components/product/ProductInfo";
 import { SERVER_URL } from "../envConfig";
-import Head from "../Head";
+import Head from "../components/Head";
 
 const ProductPage = () => {
   const product = useLoaderData();

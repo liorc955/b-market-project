@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CheckOut from "../components/checkout/CheckOut";
-import Head from "../Head";
+import Head from "../components/Head";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();

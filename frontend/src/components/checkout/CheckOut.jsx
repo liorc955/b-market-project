@@ -12,7 +12,7 @@ import classes from "./CheckOut.module.css";
 import { SERVER_URL } from "../../envConfig";
 
 const CheckOut = () => {
-  const [items, isThereErrorOnGet] = useCartState();
+  const items = useCartState();
   const [isOrderPosted, setIsOrderPosted] = useState(false);
   const [isThereErrorOnPost, setIsThereErrorOnPost] = useState(false);
   const dispatch = useDispatch();
@@ -48,14 +48,13 @@ const CheckOut = () => {
     <>
       <h1>Let's review what we have...&#128521;</h1>
       <Card className={classes["checkout-container"]} image={checkOutLogo}>
-        {isThereErrorOnGet ? (
-          <Error />
-        ) : (
-          <CartItems className={classes['item-group']} items={items} isCheckOutPage={true} />
-        )}
+        <CartItems
+          className={classes["item-group"]}
+          items={items}
+          isCheckOutPage={true}
+        />
         <CheckOutForm
           isErrorOnPost={isThereErrorOnPost}
-          isErrorOnGet={isThereErrorOnGet}
           postNewOrder={postNewOrder}
         />
       </Card>

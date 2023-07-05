@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SERVER_URL } from "../envConfig";
 
 const initialState = {
   itemsInCart: [],
@@ -60,44 +59,21 @@ const cartSlice = createSlice({
   },
 });
 
-export const fetchItemsCart = (setIsThereError) => {
-  return async (dispatch) => {
-    try {
-      const response = await fetch(`${SERVER_URL}/cartitems`);
-      if (!response.ok) throw new Error("status code: " + response.status);
-      setIsThereError(false);
-      let data = await response.json();
-      if (data !== null) {
-        const productsInCart = data.map((product)=> ({...product, id: product._id}))
-        dispatch(
-          cartSliceActions.setItemsList({
-            items: productsInCart,
-          })
-        );
-      }
-    } catch (expection) {
-      console.log(expection.message);
-      setIsThereError(true);
+export const fetchItemsCart = () => {
+  return (dispatch) => {
+    if (localStorage.getItem("cartItems") !== null) {
+      dispatch(
+        cartSliceActions.setItemsList({
+          items: JSON.parse(localStorage.getItem("cartItems")),
+        })
+      );
     }
   };
 };
 
-export const updateItemsCart = (data, setIsThereError) => {
-  return async () => {
-    try {
-      const response = await fetch(`${SERVER_URL}/cartitems`, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) throw new Error("status code: " + response.status);
-      setIsThereError(false);
-    } catch (expection) {
-      console.log(expection.message);
-      setIsThereError(true);
-    }
+export const updateItemsCart = (data) => {
+  return () => {
+    localStorage.setItem("cartItems", JSON.stringify(data));
   };
 };
 

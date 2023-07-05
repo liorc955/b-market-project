@@ -1,4 +1,4 @@
-import Head from "../Head";
+import Head from "../components/Head";
 import SummarySection from "../components/SummarySection";
 import ProductList from "../components/product/ProductList";
 

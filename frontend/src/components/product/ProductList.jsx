@@ -11,7 +11,7 @@ const ProductList = () => {
 
   const fetchProductList = useCallback(async () => {
     try {
-      const response = await fetch(`${SERVER_URL}/products/`);
+      const response = await fetch(`${SERVER_URL}/products`);
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }

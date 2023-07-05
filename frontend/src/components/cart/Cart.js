@@ -3,7 +3,6 @@ import Navbar from "react-bootstrap/Navbar";
 import CartItems from "./CartItems";
 import classes from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
-import Error from "../UI/Error";
 import Fade from "@mui/material/Fade";
 
 const Cart = (props) => {
@@ -14,7 +13,7 @@ const Cart = (props) => {
     localStorage.setItem("isCheckOutBtnClicked", true);
   };
 
-  let animateCondition = props.items.length > 0 && !props.isThereError;
+  let animateCondition = props.items.length > 0;
 
   let cartBody = (
     <div>
@@ -28,15 +27,6 @@ const Cart = (props) => {
   if (!animateCondition) {
     cartBody = <h5>No Items In Cart!</h5>;
     animateCondition = !animateCondition;
-  }
-
-  if (props.isThereError) {
-    cartBody = (
-      <div>
-        <Error />
-      </div>
-    );
-    animateCondition = props.isThereError;
   }
 
   const expand = props.expand;

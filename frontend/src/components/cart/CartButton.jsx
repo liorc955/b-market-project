@@ -9,11 +9,9 @@ const CartButton = (props) => {
   const [classAnimate, setClassAnimate] = useState(
     `${classes["cart-counter"]}`
   );
-  const [items ,isThereError] = useCartState();
+  const items = useCartState();
   const expand = props.exapnd;
-  const itemsInCart = isThereError
-    ? 0
-    : items.reduce((total, product) => total + product.quantity, 0);
+  const itemsInCart = items.reduce((total, product) => total + product.quantity, 0);
 
   useEffect(() => {
     setClassAnimate(
@@ -33,7 +31,7 @@ const CartButton = (props) => {
         <ShoppingCartIcon />
         <span className={classAnimate}>{itemsInCart}</span>
       </Navbar.Toggle>
-      <Cart items={items} isThereError={isThereError} />
+      <Cart items={items} />
     </>
   );
 };

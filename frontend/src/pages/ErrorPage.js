@@ -2,7 +2,7 @@ import { useRouteError } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
 import classes from "./ErrorPage.module.css";
 import errorImg from "../img/error.png";
-import Head from "../Head";
+import Head from "../components/Head";
 
 const ErrorPage = () => {
   const error = useRouteError();
