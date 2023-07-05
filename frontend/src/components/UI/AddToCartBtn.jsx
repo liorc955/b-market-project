@@ -1,8 +1,9 @@
 import React from "react";
+import classes from './AddToCartBtn.module.css';
 
 const AddToCartBtn = (props) => {
   return (
-    <button className="btn btn-primary" onClick={props.onAddItem}>
+    <button className={classes.addCartBtn} onClick={props.onAddItem}>
       Add to Cart
     </button>
   );
