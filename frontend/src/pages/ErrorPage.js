@@ -3,13 +3,13 @@ import MainNavigation from "../components/MainNavigation";
 import classes from "./ErrorPage.module.css";
 import errorImg from "../img/error.png";
 import Head from "../components/Head";
+import Footer from "../components/Footer";
 
 const ErrorPage = () => {
   const error = useRouteError();
   let title = "An Error Occured";
   let message = "Something Went Wrong!";
   const status = error.status;
-  console.log(error);
 
   if (status === 500) {
     message = error.data.message;
@@ -28,6 +28,7 @@ const ErrorPage = () => {
         <img alt="error page logo" src={errorImg} />
         <p>{message}</p>
       </div>
+      <Footer />
     </>
   );
 };
