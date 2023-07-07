@@ -3,7 +3,7 @@ import ProductItem from "./ProductItem";
 import classes from "./ProductList.module.css";
 import Error from "../UI/Error.js";
 import { SERVER_URL } from "../../envConfig";
-import ProductLoading from "../UI/ProductLoading";
+import ProductsLoading from "./ProductsLoading";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -44,7 +44,7 @@ const ProductList = () => {
 
   let body =
     products.length === 0 ? (
-      <ProductLoading />
+      <ProductsLoading />
     ) : (
       <ul className={classes["list-group"] + " shadow"}>{productList}</ul>
     );

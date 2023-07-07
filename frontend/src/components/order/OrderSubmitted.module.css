@@ -1,6 +1,9 @@
 .container {
     text-align: center;
     padding-top: 4%;
+    word-wrap:break-word;
+    overflow: hidden;
+    position: relative;
 }
 
 .container span {
@@ -9,5 +12,6 @@
 }
 
 .container img {
-    width: 30%;
+    max-width: 100%;
+    max-height: 100%;
 }

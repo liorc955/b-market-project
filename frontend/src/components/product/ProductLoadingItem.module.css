@@ -1,0 +1,60 @@
+.loading {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    animation: pulse 1s ease-in-out infinite;
+  }
+  
+  .loading-image {
+    width: 90.304px;
+    height: 150.756px;
+    background-color: #868686;
+    margin-right: 16px;
+  }
+  
+  .loading-details {
+    flex-grow: 1;
+  }
+  
+  .loading-title {
+    width: 110.128px;
+    height: 23.988px;
+    background-color: #868686;
+    margin-bottom: 4px;
+  }
+  
+  .loading-description {
+    width: 210.128px;
+    height: 20.997px;
+    background-color: #868686;
+    margin-bottom: 20px;
+  }
+  
+  .loading-price {
+    width: 50px;
+    height: 19.196px;
+    background-color: #868686;
+  
+    margin-bottom: 4px;
+  }
+  
+  .loading-button {
+    width: 120px;
+    height: 36.19px;
+    background-color: #868686;
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0.2;
+    }
+  }
+  
