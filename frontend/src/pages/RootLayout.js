@@ -10,12 +10,14 @@ const RootLayout = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (navigation.state === "loading") {
+    if (navigation.state === "loading" && !isLoading) {
       setIsLoading(true);
     }
 
-    return ()=> setIsLoading(false);
-  }, [navigation.state]);
+    if (navigation.state === "idle" && isLoading) {
+      setIsLoading(false);
+    }
+  }, [navigation.state, isLoading]);
 
   return (
     <>
@@ -24,7 +26,11 @@ const RootLayout = () => {
         <Outlet />
       </main>
       <Footer />
-      {isLoading && <Modal><PageLoading /></Modal>}
+      {isLoading && (
+        <Modal>
+          <PageLoading />
+        </Modal>
+      )}
     </>
   );
 };
