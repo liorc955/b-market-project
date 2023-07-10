@@ -22,16 +22,21 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "products/:id",
-        element: (
-          <Suspense fallback={loadingContent}>
-            <ProductPage />
-          </Suspense>
-        ),
-        loader: (meta) =>
-          import("./pages/ProductPage").then((module) =>
-            module.productLoader(meta)
-          ),
+        path: "products",
+        children: [
+          {
+            path: ":id",
+            element: (
+              <Suspense fallback={loadingContent}>
+                <ProductPage />
+              </Suspense>
+            ),
+            loader: (meta) =>
+              import("./pages/ProductPage").then((module) =>
+                module.productLoader(meta)
+              ),
+          },
+        ],
       },
     ],
   },
