@@ -1,10 +1,9 @@
-
 import Card from "../UI/Card";
 import classes from "./ProductInfo.module.css";
 import ProductImg from "../product/ProductImg";
 import Input from "../UI/Input";
 import { useCallback, useRef } from "react";
-import AddToCartBtn from "../UI/AddToCartBtn";
+import Button from "../UI/Button";
 import { useDispatch } from "react-redux";
 import veganImg from "../../img/vegan.png";
 import { cartSliceActions } from "../../store/cart-slice";
@@ -48,7 +47,7 @@ const ProductInfo = (props) => {
           <p>{product.description}</p>
           <p style={{ fontWeight: "bold" }}>Price: {product.price}$</p>
           <Input inputRef={counterInputRef} />
-          <AddToCartBtn onAddItem={addProductToCart} />
+          <Button onAddItem={addProductToCart}>Add To Cart</Button>
         </div>
         <img
           style={{ height: "80px", width: "80px" }}
