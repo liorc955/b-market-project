@@ -1,0 +1,4 @@
+.error-placeholder::placeholder {
+    color: red !important;
+    opacity: 1;
+  }

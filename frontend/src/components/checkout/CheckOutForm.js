@@ -1,122 +1,136 @@
-import { useRef, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
+import { useForm } from "react-hook-form";
+import CheckOutInput from "./CheckOutInput";
+import AddToCartBtn from "../UI/Button";
+
+const inputs = [
+  {
+    contrains: {
+      required: "Provide a valid first name",
+      pattern: {
+        value: /^[A-Za-z]+$/,
+        message: "Provide a valid first name",
+      },
+    },
+    type: "text",
+    keyName: "first-name",
+    labelName: "First Name",
+  },
+  {
+    contrains: {
+      required: "Provide a valid last name",
+      pattern: {
+        value: /^[A-Za-z]+$/,
+        message: "Provide a valid last name",
+      },
+    },
+    type: "text",
+    keyName: "last-name",
+    labelName: "Last Name",
+  },
+  {
+    contrains: {
+      required: "Provide a valid email",
+    },
+    type: "email",
+    keyName: "email",
+    labelName: "Email",
+  },
+  {
+    contrains: {
+      required: `Provide a valid mobile number`,
+      pattern: {
+        value: /^\d+$/,
+        message: "Provide a valid mobile number",
+      },
+    },
+    type: "text",
+    keyName: "mobile-number",
+    labelName: "Mobile Number",
+  },
+  {
+    contrains: {
+      required: "Provide a valid city",
+      maxLength: 80,
+      pattern: {
+        value: /^[A-Za-z]+$/,
+        message: "Provide a valid city",
+      },
+    },
+    type: "text",
+    keyName: "city",
+    labelName: "City",
+  },
+  {
+    contrains: {
+      required: "Provide a valid state",
+      maxLength: {
+        value: 10,
+        message: "Provide a valid state",
+      },
+      pattern: {
+        value: /^[A-Za-z]+$/,
+        message: "Provide a valid state",
+      },
+    },
+    type: "text",
+    keyName: "state",
+    labelName: "State",
+  },
+  {
+    contrains: {
+      required: "Provide a valid zip code",
+      maxLength: {
+        value: 7,
+        message: "Provide a valid zip code",
+      },
+      pattern: {
+        value: /^\d+$/,
+        message: "Provide a valid zip code",
+      },
+    },
+    type: "text",
+    keyName: "zip-code",
+    labelName: "Zip Code",
+  },
+];
 
 const CheckOutForm = (props) => {
-  const [validated, setValidated] = useState(false);
-  const firstNameRef = useRef();
-  const lastNameRef = useRef();
-  const cityRef = useRef();
-  const stateRef = useRef();
-  const zipRef = useRef();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
-  const formGroupClass =
-    "d-flex justify-content-center align-items-center mb-3";
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-    } else {
-      props.postNewOrder({
-        firstName: firstNameRef.current.value,
-        lastName: lastNameRef.current.value,
-        city: cityRef.current.value,
-        state: stateRef.current.value,
-        zip: zipRef.current.value,
-      });
-    }
-    setValidated(true);
+  const onSubmit = (data) => {
+    props.postNewOrder(data);
   };
+
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleSubmit} className="w-50">
-        <h5 className="text-center mb-4 mt-2">
-          Please provide the requested information below to ensure a seamless
-          process and enable us to serve you better:
-        </h5>
-        <Row className={formGroupClass}>
-          <Form.Group as={Col} md="4" controlId="validationCustom01">
-            <Form.Label>First name</Form.Label>
-            <Form.Control
-              ref={firstNameRef}
-              required
-              type="text"
-              placeholder="First name"
-            />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Last name</Form.Label>
-            <Form.Control
-              ref={lastNameRef}
-              required
-              type="text"
-              placeholder="Last name"
-            />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Row className={formGroupClass}>
-          <Form.Group as={Col} md="4" controlId="validationCustom03">
-            <Form.Label>City</Form.Label>
-            <Form.Control
-              ref={cityRef}
-              type="text"
-              placeholder="City"
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Provide a valid city.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom04">
-            <Form.Label>State</Form.Label>
-            <Form.Control
-              ref={stateRef}
-              type="text"
-              placeholder="State"
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Provide a valid state.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>Zip</Form.Label>
-            <Form.Control
-              ref={zipRef}
-              type="text"
-              placeholder="Zip"
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Provide a valid zip.
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Form.Group className={formGroupClass}>
-          <Form.Check
-            required
-            label="Agree to terms and conditions"
-            feedback="You must agree before submitting."
-            feedbackType="invalid"
+      <h5 className="text-center">
+        Please enter the details to complete the order:
+      </h5>
+      <form className="form-group" onSubmit={handleSubmit(onSubmit)}>
+        {inputs.map((inputElement) => (
+          <CheckOutInput
+            key={inputElement.keyName}
+            register={register}
+            errors={errors}
+            contrains={inputElement.contrains}
+            type={inputElement.type}
+            inputKeyName={inputElement.keyName}
+            labelName={inputElement.labelName}
           />
-        </Form.Group>
+        ))}
         <div className="text-center">
-          <Button type="submit">
-            Place Order
-          </Button>
+          <AddToCartBtn disabled={isSubmitting}>Submit Order</AddToCartBtn>
           {props.isErrorOnPost && (
-            <Form.Control.Feedback style={{color: 'red'}}>
+            <p className="text-danger mt-2" role="alert">
               Please Try Again
-            </Form.Control.Feedback>
+            </p>
           )}
         </div>
-      </Form>
+      </form>
     </>
   );
 };

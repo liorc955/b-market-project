@@ -5,16 +5,18 @@ import Card from "../UI/Card";
 import Error from "../UI/Error";
 import useCartState from "../../hooks/useCartState";
 import { useState } from "react";
-import checkOutLogo from "./../../img/checkoutLogo.webp";
 import { cartSliceActions } from "../../store/cart-slice";
 import OrderSubmitted from "../order/OrderSubmitted";
 import classes from "./CheckOut.module.css";
 import { SERVER_URL } from "../../envConfig";
+import Modal from "../UI/Modal";
+import PageLoading from "../UI/PageLoading";
 
 const CheckOut = () => {
   const items = useCartState();
   const [isOrderPosted, setIsOrderPosted] = useState(false);
   const [isThereErrorOnPost, setIsThereErrorOnPost] = useState(false);
+  const [isOrderUploading, setisOrderUploading] = useState(false);
   const dispatch = useDispatch();
 
   const postNewOrder = async (customerInfo) => {
@@ -25,7 +27,7 @@ const CheckOut = () => {
 
     try {
       setIsThereErrorOnPost(false);
-
+      setisOrderUploading(true);
       const response = await fetch(`${SERVER_URL}/orders`, {
         method: "POST",
         body: JSON.stringify(orderPayLoad),
@@ -33,7 +35,7 @@ const CheckOut = () => {
           "Content-Type": "application/json",
         },
       });
-
+      setisOrderUploading(false);
       if (!response.ok) throw new Error(response.status);
       setIsOrderPosted(true);
       localStorage.removeItem("isCheckOutBtnClicked");
@@ -47,17 +49,22 @@ const CheckOut = () => {
   let cartBody = (
     <>
       <h1>Let's review what we have...&#128521;</h1>
-      <Card className={classes["checkout-container"]} image={checkOutLogo}>
-        <CartItems
-          className={classes["item-group"]}
-          items={items}
-          isCheckOutPage={true}
-        />
-        <CheckOutForm
-          isErrorOnPost={isThereErrorOnPost}
-          postNewOrder={postNewOrder}
-        />
-      </Card>
+      <div className={classes["checkout-container"]}>
+        <Card className={classes["checkout-items"]}>
+          <CartItems items={items} isCheckOutPage={true} />
+        </Card>
+        <Card>
+          <CheckOutForm
+            isErrorOnPost={isThereErrorOnPost}
+            postNewOrder={postNewOrder}
+          />
+        </Card>
+      </div>
+      {isOrderUploading && (
+        <Modal>
+          <PageLoading />
+        </Modal>
+      )}
     </>
   );
 
@@ -65,7 +72,7 @@ const CheckOut = () => {
     cartBody = <OrderSubmitted />;
   }
 
-  return <div className={classes["checkout-outer"]}>{cartBody}</div>;
+  return <>{cartBody}</>;
 };
 
 export default CheckOut;
