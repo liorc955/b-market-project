@@ -23,7 +23,7 @@ const CartItem = (props) => {
       <div>
         <h5>{props.title}</h5>
         {props.isCheckOutPage && <span>{props.description}</span>}
-        <span>Price: {props.price}</span>
+        <span>Price: {props.price}$</span>
         {counterBody}
       </div>
     </li>
