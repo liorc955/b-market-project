@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import classes from './Input.module.css';
+import classes from './CounterInput.module.css';
 
-const Input = (props) => {
+const CounterInput = (props) => {
     const [counter, setCounter] = useState(1);
     const btnClass = 'btn btn-light';
     const increaseCounter = () => {
@@ -22,4 +22,4 @@ const Input = (props) => {
   );
 };
 
-export default Input;
+export default CounterInput;

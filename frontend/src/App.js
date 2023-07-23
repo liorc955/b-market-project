@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import RootLayout from "./pages/RootLayout";
 import { Suspense, lazy } from "react";
 import PageLoading from "./components/UI/PageLoading";
+import LoginPage from "./pages/LoginPage";
+import { submitAction } from "./components/login/Login";
 
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CheckOutPage = lazy(() => import("./pages/CheckOutPage"));
@@ -37,6 +39,11 @@ const router = createBrowserRouter([
               ),
           },
         ],
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+        action: submitAction,
       },
     ],
   },

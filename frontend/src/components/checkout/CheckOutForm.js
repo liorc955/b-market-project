@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import CheckOutInput from "./CheckOutInput";
-import AddToCartBtn from "../UI/Button";
+import FormInput from "../UI/FormInput";
+import Button from "../UI/Button";
 
 const inputs = [
   {
@@ -112,7 +112,7 @@ const CheckOutForm = (props) => {
       </h5>
       <form className="form-group" onSubmit={handleSubmit(onSubmit)}>
         {inputs.map((inputElement) => (
-          <CheckOutInput
+          <FormInput
             key={inputElement.keyName}
             register={register}
             errors={errors}
@@ -123,7 +123,7 @@ const CheckOutForm = (props) => {
           />
         ))}
         <div className="text-center">
-          <AddToCartBtn disabled={isSubmitting}>Submit Order</AddToCartBtn>
+          <Button disabled={isSubmitting}>Submit Order</Button>
           {props.isErrorOnPost && (
             <p className="text-danger mt-2" role="alert">
               Please Try Again

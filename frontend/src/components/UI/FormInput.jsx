@@ -1,6 +1,6 @@
-import classes from "./CheckOutInput.module.css";
+import classes from "./FormInput.module.css";
 
-const CheckOutInput = (props) => {
+const FormInput = (props) => {
   const errors = props.errors;
   const labelName = props.labelName;
   const inputKeyName = props.inputKeyName;
@@ -26,4 +26,4 @@ const CheckOutInput = (props) => {
   );
 };
 
-export default CheckOutInput;
+export default FormInput;

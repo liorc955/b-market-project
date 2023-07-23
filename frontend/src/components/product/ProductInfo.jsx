@@ -1,7 +1,7 @@
 import Card from "../UI/Card";
 import classes from "./ProductInfo.module.css";
 import ProductImg from "../product/ProductImg";
-import Input from "../UI/Input";
+import CounterInput from "../UI/CounterInput";
 import { useCallback, useRef } from "react";
 import Button from "../UI/Button";
 import { useDispatch } from "react-redux";
@@ -46,7 +46,7 @@ const ProductInfo = (props) => {
           <h1>{product.title}</h1>
           <p>{product.description}</p>
           <p style={{ fontWeight: "bold" }}>Price: {product.price}$</p>
-          <Input inputRef={counterInputRef} />
+          <CounterInput inputRef={counterInputRef} />
           <Button onAddItem={addProductToCart}>Add To Cart</Button>
         </div>
         <img
