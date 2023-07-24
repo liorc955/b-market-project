@@ -2,11 +2,16 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import CartButton from "./cart/CartButton";
 import { useCallback, useEffect, useState } from "react";
-import classes from './MainNavigation.module.css';
-import { NavLink } from "react-router-dom";
+import classes from "./MainNavigation.module.css";
+import { NavLink, useLoaderData } from "react-router-dom";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { removeToken } from "../auth";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 const MainNavigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const isTokenExists = useLoaderData();
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
@@ -16,6 +21,8 @@ const MainNavigation = () => {
       setIsScrolled(false);
     }
   }, []);
+
+  const expand = false;
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -30,14 +37,28 @@ const MainNavigation = () => {
         isScrolled ? "shadow" : ""
       }`}
     >
-      {[false].map((expand) => (
-        <Navbar key={expand} bg="light" expand={expand}>
-          <Container fluid>
-            <NavLink to='/' className={classes.brand}>B-Market</NavLink>
-            <CartButton expand={expand} />
-          </Container>
-        </Navbar>
-      ))}
+      <Navbar key={expand} bg="light" expand={expand}>
+        <Container fluid>
+          <Offcanvas.Header>
+            <NavLink to="/" className={classes.brand + " " + classes.link}>
+              B-Market
+            </NavLink>
+          </Offcanvas.Header>
+          <Offcanvas.Body />
+          <div className="px-3">
+            {!isTokenExists ? (
+              <NavLink className={classes.link} to="/login">
+                <LoginIcon /> Login
+              </NavLink>
+            ) : (
+              <NavLink onClick={removeToken} className={classes.link}>
+                <LogoutIcon /> Logout
+              </NavLink>
+            )}
+          </div>
+          <CartButton expand={expand} />
+        </Container>
+      </Navbar>
     </div>
   );
 };
