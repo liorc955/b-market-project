@@ -37,27 +37,27 @@ app.get(`${routeSource}/products/:id`, async (req, res) => {
   }
 });
 
-app.put(`${routeSource}/cartitems`, async (req, res) => {
-  const cartItems = req.body;
-  try {
-    await Cart.deleteMany({});
-    await Cart.insertMany(cartItems);
-    return res.sendStatus(201);
-  } catch (expection) {
-    console.log(expection.message);
-    throw res.sendStatus(500);
-  }
-});
+// app.put(`${routeSource}/cartitems`, async (req, res) => {
+//   const cartItems = req.body;
+//   try {
+//     await Cart.deleteMany({});
+//     await Cart.insertMany(cartItems);
+//     return res.sendStatus(201);
+//   } catch (expection) {
+//     console.log(expection.message);
+//     throw res.sendStatus(500);
+//   }
+// });
 
-app.get(`${routeSource}/cartitems`, async (req, res) => {
-  try {
-    const data = await Cart.find({}, { _id: 0 });
-    return res.status(200).json(data);
-  } catch (expection) {
-    console.log(expection.message);
-    throw res.status(500);
-  }
-});
+// app.get(`${routeSource}/cartitems`, async (req, res) => {
+//   try {
+//     const data = await Cart.find({}, { _id: 0 });
+//     return res.status(200).json(data);
+//   } catch (expection) {
+//     console.log(expection.message);
+//     throw res.status(500);
+//   }
+// });
 
 app
   .route(`${routeSource}/orders`)
@@ -67,23 +67,23 @@ app
       userId: userId,
       products,
       userAddress,
-      timeStamp
+      timeStamp,
     });
 
     try {
       await order.save();
-      return res.sendStatus(200);
+      return res.sendStatus(201);
     } catch (expection) {
       console.log(expection.message);
       throw res.sendStatus(500);
     }
   })
-  .get(authenticationJwt , async (req, res) => {
+  .get(authenticationJwt, async (req, res) => {
     const user = req.user;
     let data = {};
     try {
       if (user) {
-        data = await Order.find({userId: user.id});
+        data = await Order.find({ userId: user.id });
       } else {
         data = await Order.find();
       }
