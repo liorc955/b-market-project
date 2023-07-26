@@ -10,7 +10,9 @@ const { User } = require("./models/User");
 app.use(express.json());
 app.use(cors());
 
-app.post("/auth/login", (req, res) => {
+const routeSource = "/auth";
+
+app.post(`${routeSource}/login`, (req, res) => {
   const { username, password } = req.body;
   const errorMsg = "Incorrect username or password";
   User.findOne({ username: username }).then(function (foundUser, error) {
@@ -34,7 +36,7 @@ app.post("/auth/login", (req, res) => {
   });
 });
 
-app.post("/auth/register", (req, res) => {
+app.post(`${routeSource}/register`, (req, res) => {
   const user = req.body;
   bcrypt.hash(
     user.password,
@@ -73,7 +75,7 @@ function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 }
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 
 app.listen(port, (err, res) => {
   if (err) {

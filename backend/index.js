@@ -15,7 +15,9 @@ app.get("/", (req, res) => {
   res.send("<h1>The server is up and running!</h1>");
 });
 
-app.get("/products", async (req, res) => {
+const routeSource = "/api";
+
+app.get(`${routeSource}/products`, async (req, res) => {
   try {
     const data = await Product.find();
     return res.status(200).json(data);
@@ -25,7 +27,7 @@ app.get("/products", async (req, res) => {
   }
 });
 
-app.get("/products/:id", async (req, res) => {
+app.get(`${routeSource}/products/:id`, async (req, res) => {
   try {
     const data = await Product.findById(req.params.id, { _id: 0 });
     return res.status(200).json(data);
@@ -35,7 +37,7 @@ app.get("/products/:id", async (req, res) => {
   }
 });
 
-app.put("/cartitems", async (req, res) => {
+app.put(`${routeSource}/cartitems`, async (req, res) => {
   const cartItems = req.body;
   try {
     await Cart.deleteMany({});
@@ -47,7 +49,7 @@ app.put("/cartitems", async (req, res) => {
   }
 });
 
-app.get("/cartitems", async (req, res) => {
+app.get(`${routeSource}/cartitems`, async (req, res) => {
   try {
     const data = await Cart.find({}, { _id: 0 });
     return res.status(200).json(data);
@@ -58,7 +60,7 @@ app.get("/cartitems", async (req, res) => {
 });
 
 app
-  .route("/orders")
+  .route(`${routeSource}/orders`)
   .post(async (req, res) => {
     const { userId, products, userAddress, timeStamp } = req.body;
     const order = new Order({
@@ -92,7 +94,7 @@ app
     }
   });
 
-app.get("/users", authenticationJwt, async (req, res) => {
+app.get(`${routeSource}/users`, authenticationJwt, async (req, res) => {
   const user = req.user;
   const exludedFields = {
     username: 0,
