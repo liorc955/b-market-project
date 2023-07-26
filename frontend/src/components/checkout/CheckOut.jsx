@@ -13,7 +13,7 @@ import PageLoading from "../UI/PageLoading";
 import GuestCheckOut from "./GuestCheckOut";
 import UserCheckOut from "./UserCheckOut";
 import { useLoaderData } from "react-router-dom";
-import moment from "moment";
+import { moment } from 'moment';
 
 const CheckOut = () => {
   const items = useCartState();

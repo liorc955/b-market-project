@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmarket_project=self.webpackChunkmarket_project||[]).push([[588],{4588:function(e,t,c){c.r(t);var n=c(5408),r=c(184);t.default=function(){return(0,r.jsxs)("div",{className:"container mt-4",children:[(0,r.jsx)("h2",{className:"col-md-8 col-xl-6 text-center mx-auto",children:"Log in"}),(0,r.jsx)(n.Z,{})]})}}}]);
+//# sourceMappingURL=588.2e0adf4d.chunk.js.map
