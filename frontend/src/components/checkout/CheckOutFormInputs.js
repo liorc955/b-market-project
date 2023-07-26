@@ -1,30 +1,31 @@
-import { useForm } from "react-hook-form";
+
 import FormInput from "../UI/FormInput";
-import Button from "../UI/Button";
+
+const textRegex = /^[A-Za-z]+$/;
 
 const inputs = [
   {
     contrains: {
       required: "Provide a valid first name",
       pattern: {
-        value: /^[A-Za-z]+$/,
+        value: textRegex,
         message: "Provide a valid first name",
       },
     },
     type: "text",
-    keyName: "first-name",
+    keyName: "firstName",
     labelName: "First Name",
   },
   {
     contrains: {
       required: "Provide a valid last name",
       pattern: {
-        value: /^[A-Za-z]+$/,
+        value: textRegex,
         message: "Provide a valid last name",
       },
     },
     type: "text",
-    keyName: "last-name",
+    keyName: "lastName",
     labelName: "Last Name",
   },
   {
@@ -37,22 +38,22 @@ const inputs = [
   },
   {
     contrains: {
-      required: `Provide a valid mobile number`,
+      required: `Provide a valid street address`,
       pattern: {
-        value: /^\d+$/,
-        message: "Provide a valid mobile number",
+        value: /^[A-Za-z0-9\s]+$/,
+        message: "Provide a valid street address",
       },
     },
     type: "text",
-    keyName: "mobile-number",
-    labelName: "Mobile Number",
+    keyName: "street",
+    labelName: "Street",
   },
   {
     contrains: {
       required: "Provide a valid city",
       maxLength: 80,
       pattern: {
-        value: /^[A-Za-z]+$/,
+        value: textRegex,
         message: "Provide a valid city",
       },
     },
@@ -68,7 +69,7 @@ const inputs = [
         message: "Provide a valid state",
       },
       pattern: {
-        value: /^[A-Za-z]+$/,
+        value: textRegex,
         message: "Provide a valid state",
       },
     },
@@ -89,50 +90,27 @@ const inputs = [
       },
     },
     type: "text",
-    keyName: "zip-code",
+    keyName: "zipCode",
     labelName: "Zip Code",
   },
 ];
 
-const CheckOutForm = (props) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm();
-
-  const onSubmit = (data) => {
-    props.postNewOrder(data);
-  };
-
+const CheckOutFormInputs = (props) => {
   return (
     <>
-      <h5 className="text-center">
-        Please enter the details to complete the order:
-      </h5>
-      <form className="form-group" onSubmit={handleSubmit(onSubmit)}>
-        {inputs.map((inputElement) => (
-          <FormInput
-            key={inputElement.keyName}
-            register={register}
-            errors={errors}
-            contrains={inputElement.contrains}
-            type={inputElement.type}
-            inputKeyName={inputElement.keyName}
-            labelName={inputElement.labelName}
-          />
-        ))}
-        <div className="text-center">
-          <Button disabled={isSubmitting}>Submit Order</Button>
-          {props.isErrorOnPost && (
-            <p className="text-danger mt-2" role="alert">
-              Please Try Again
-            </p>
-          )}
-        </div>
-      </form>
+      {inputs.map((inputElement) => (
+        <FormInput
+          key={inputElement.keyName}
+          register={props.register}
+          errors={props.errors}
+          contrains={inputElement.contrains}
+          type={inputElement.type}
+          inputKeyName={inputElement.keyName}
+          labelName={inputElement.labelName}
+        />
+      ))}
     </>
   );
 };
 
-export default CheckOutForm;
+export default CheckOutFormInputs;

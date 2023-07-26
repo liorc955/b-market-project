@@ -2,12 +2,13 @@ import { useForm } from "react-hook-form";
 import Button from "../UI/Button";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Card from "./../UI/Card";
-import FormInput from "../UI/FormInput";
 import { Form, redirect, useActionData, useSubmit } from "react-router-dom";
 import Modal from "../UI/Modal";
 import PageLoading from "../UI/PageLoading";
 import { useEffect, useState } from "react";
 import { setToken } from "../../auth";
+import LoginFormInputs from "./LoginFormInputs";
+import { SERVER_URL_AUTH } from "../../envConfig";
 
 const Login = () => {
   const submit = useSubmit();
@@ -35,36 +36,7 @@ const Login = () => {
           style={{ height: "100px", width: "100px", color: "#06f" }}
         />
         <Form className="form-group" onSubmit={handleSubmit(onSubmit)}>
-          <FormInput
-            key="username"
-            register={register}
-            errors={errors}
-            contrains={{
-              required: "Provide a valid username",
-              maxLength: {
-                value: 10,
-                message: "Provide a valid username",
-              },
-            }}
-            type="text"
-            inputKeyName="username"
-            labelName="Username"
-          />
-          <FormInput
-            key="password"
-            register={register}
-            errors={errors}
-            contrains={{
-              required: "Provide a valid password",
-              maxLength: {
-                value: 12,
-                message: "Provide a valid password",
-              },
-            }}
-            type="password"
-            inputKeyName="password"
-            labelName="Password"
-          />
+          <LoginFormInputs errors={errors} register={register} />
           <div className="text-center mt-3">
             <Button disabled={isLoading}>Login</Button>
           </div>
@@ -95,7 +67,7 @@ export const submitAction = async ({ request }) => {
   };
 
   try {
-    const response = await fetch("http://localhost:5000/login", {
+    const response = await fetch(`${SERVER_URL_AUTH}/login`, {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {

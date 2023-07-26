@@ -5,7 +5,7 @@ const Button = (props) => {
   return (
     <button
       className={classes.addCartBtn}
-      onClick={props.onAddItem}
+      onClick={props.onClick}
       disabled={props.disabled}
     >
       {props.children}

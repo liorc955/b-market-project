@@ -3,15 +3,16 @@ import Navbar from "react-bootstrap/Navbar";
 import CartButton from "./cart/CartButton";
 import { useCallback, useEffect, useState } from "react";
 import classes from "./MainNavigation.module.css";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { removeToken } from "../auth";
+import { getToken, removeToken } from "../auth";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 const MainNavigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const isTokenExists = useLoaderData();
+  const isTokenExists = getToken();
+  const navigate = useNavigate();
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
@@ -23,6 +24,11 @@ const MainNavigation = () => {
   }, []);
 
   const expand = false;
+
+  const handleLogOutClick = () => {
+    removeToken();
+    navigate("/");
+  }
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -45,13 +51,13 @@ const MainNavigation = () => {
             </NavLink>
           </Offcanvas.Header>
           <Offcanvas.Body />
-          <div className="px-3">
+          <div className="px-3 mb-1">
             {!isTokenExists ? (
               <NavLink className={classes.link} to="/login">
                 <LoginIcon /> Login
               </NavLink>
             ) : (
-              <NavLink onClick={removeToken} className={classes.link}>
+              <NavLink onClick={handleLogOutClick} className={classes.link}>
                 <LogoutIcon /> Logout
               </NavLink>
             )}

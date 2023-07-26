@@ -5,7 +5,8 @@ import RootLayout from "./pages/RootLayout";
 import { Suspense, lazy } from "react";
 import PageLoading from "./components/UI/PageLoading";
 import { submitAction } from "./components/login/Login";
-import { checkAutLoader, tokenLoader } from "./auth";
+import { checkAutLoader } from "./auth";
+import { checkOutPageLoader } from "./pages/CheckOutPage";
 
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CheckOutPage = lazy(() => import("./pages/CheckOutPage"));
@@ -19,7 +20,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
-    loader: tokenLoader,
     children: [
       {
         index: true,
@@ -56,11 +56,13 @@ const router = createBrowserRouter([
   },
   {
     path: "checkout",
+    errorElement: <ErrorPage />,
     element: (
       <Suspense fallback={loadingContent}>
         <CheckOutPage />
       </Suspense>
     ),
+    loader: checkOutPageLoader,
   },
 ]);
 

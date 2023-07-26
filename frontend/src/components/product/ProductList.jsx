@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import classes from "./ProductList.module.css";
 import Error from "../UI/Error.js";
-import { SERVER_URL } from "../../envConfig";
+import { SERVER_URL_API } from "../../envConfig";
 import ProductsLoading from "./ProductsLoading";
 
 const ProductList = () => {
@@ -11,7 +11,7 @@ const ProductList = () => {
 
   const fetchProductList = useCallback(async () => {
     try {
-      const response = await fetch(`${SERVER_URL}/products`);
+      const response = await fetch(`${SERVER_URL_API}/products`);
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }

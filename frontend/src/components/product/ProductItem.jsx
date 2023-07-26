@@ -45,7 +45,7 @@ const ProductItem = (props) => {
           <h5 className="mt-0 font-weight-bold mb-2">{props.title}</h5>
           <p className="font-italic text-muted mb-0 small">{description}</p>
           <h6 className="font-weight-bold my-2">${props.price}</h6>
-          <Button onAddItem={addProductToCart}>Add To Cart</Button>
+          <Button onClick={addProductToCart}>Add To Cart</Button>
         </div>
       </div>
     </li>

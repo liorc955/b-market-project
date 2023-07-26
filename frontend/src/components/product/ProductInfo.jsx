@@ -47,7 +47,7 @@ const ProductInfo = (props) => {
           <p>{product.description}</p>
           <p style={{ fontWeight: "bold" }}>Price: {product.price}$</p>
           <CounterInput inputRef={counterInputRef} />
-          <Button onAddItem={addProductToCart}>Add To Cart</Button>
+          <Button onClick={addProductToCart}>Add To Cart</Button>
         </div>
         <img
           style={{ height: "80px", width: "80px" }}

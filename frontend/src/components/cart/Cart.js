@@ -9,8 +9,8 @@ const Cart = (props) => {
   const navigate = useNavigate();
 
   const moveToCheckOutPage = () => {
-    navigate("/checkout");
     localStorage.setItem("isCheckOutBtnClicked", true);
+    navigate("/checkout");
   };
 
   let animateCondition = props.items.length > 0;
