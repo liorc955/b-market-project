@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const encrypt = require("mongoose-encryption");
+require('dotenv').config();
 
 const userSchema = mongoose.Schema({
-    username: String,
-    password: String,
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
     email: String,
     firstName: String,
     lastName: String,
+    street: String,
     city: String,
     state: String,
     zipCode: Number

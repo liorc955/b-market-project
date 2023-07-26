@@ -5,7 +5,6 @@ var jwt = require("jsonwebtoken");
 require("dotenv").config();
 require("./db");
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
 const { User } = require("./models/User");
 
 app.use(express.json());
@@ -37,27 +36,37 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
   const user = req.body;
-  bcrypt.hash(user.password, saltRounds, function (err, passwordHas) {
-    if (err) console.log(err);
-    const newUser = new User({
-      username: user.username,
-      password: passwordHas,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      city: user.city,
-      state: user.state,
-      zipCode: user.zipCode,
-    });
-    newUser.save().then(function (result, err) {
-      if (err) {
-        res.status(400).send({ errorMsg: "Registration failed" });
-        console.log(err);
-      } else {
-        res.sendStatus(201);
-      }
-    });
-  });
+  bcrypt.hash(
+    user.password,
+    parseInt(process.env.SALT_ROUNDS),
+    function (err, passwordHas) {
+      if (err) res.status(500).send({ errorMsg: "Registration failed, please try again." });
+      const newUser = new User({
+        username: user.username,
+        password: passwordHas,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        street: user.street,
+        city: user.city,
+        state: user.state,
+        zipCode: user.zipCode,
+      });
+      newUser
+        .save()
+        .then((data) => {
+          res.status(201).send({ _id: data._id });
+        })
+        .catch((error) => {
+          if (error.code === 11000) {
+            res.status(400).send({ errorMsg: "Username already exists!" });
+          } else {
+            console.error("Error:", error.message);
+            res.status(500).send({ errorMsg: "Something went wrong!" });
+          }
+        });
+    }
+  );
 });
 
 function generateAccessToken(user) {
