@@ -10,7 +10,7 @@ const { User } = require("./models/User");
 app.use(express.json());
 app.use(cors());
 
-app.post("/login", (req, res) => {
+app.post("/auth/login", (req, res) => {
   const { username, password } = req.body;
   const errorMsg = "Incorrect username or password";
   User.findOne({ username: username }).then(function (foundUser, error) {
@@ -34,7 +34,7 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.post("/register", (req, res) => {
+app.post("/auth/register", (req, res) => {
   const user = req.body;
   bcrypt.hash(
     user.password,
