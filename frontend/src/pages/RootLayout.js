@@ -4,9 +4,11 @@ import Footer from "../components/Footer";
 import Modal from "../components/UI/Modal";
 import PageLoading from "../components/UI/PageLoading";
 import useLoading from "../hooks/useLoading";
+import Card from "../components/UI/Card";
+import SessionExpired from "../components/UI/SessionExpired";
 
 const RootLayout = () => {
-  const isLoading = useLoading();
+  const [isLoading, isSessionExpired] = useLoading();
   return (
     <>
       <MainNavigation />
@@ -17,6 +19,13 @@ const RootLayout = () => {
       {isLoading && (
         <Modal>
           <PageLoading />
+        </Modal>
+      )}
+      {isSessionExpired && (
+        <Modal>
+          <Card>
+            <SessionExpired />
+          </Card>
         </Modal>
       )}
     </>

@@ -6,7 +6,7 @@ import { Form, redirect, useActionData, useSubmit } from "react-router-dom";
 import Modal from "../UI/Modal";
 import PageLoading from "../UI/PageLoading";
 import { useEffect, useState } from "react";
-import { setToken } from "../../auth";
+import { setExpirationTime, setToken } from "../../auth";
 import LoginFormInputs from "./LoginFormInputs";
 import { SERVER_URL_AUTH } from "../../envConfig";
 
@@ -77,6 +77,9 @@ export const submitAction = async ({ request }) => {
     const data = await response.json();
     if (!response.ok) return { error: data.errorMsg };
     setToken(data.accessToken);
+    const expiration = new Date();
+    expiration.setHours(expiration.getHours() + 1);
+    setExpirationTime(expiration.toISOString());
   } catch (expection) {
     console.log(expection.message);
     return { error: "Something went wrong!" };
