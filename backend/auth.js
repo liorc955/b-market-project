@@ -72,7 +72,7 @@ app.post(`${routeSource}/register`, (req, res) => {
 });
 
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1h"});
 }
 
 const port = process.env.PORT || 5000;
