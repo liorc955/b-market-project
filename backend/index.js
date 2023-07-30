@@ -93,27 +93,43 @@ app
     }
   });
 
-app.get(`${routeSource}/users`, authenticationJwt, async (req, res) => {
-  const user = req.user;
-  const exludedFields = {
-    username: 0,
-    _ct: 0,
-    _ac: 0,
-    __v: 0,
-  };
-  try {
-    let data = {};
-    if (user) {
-      data = await User.findById(user.id).select(exludedFields);
-    } else {
-      data = await User.find().select(exludedFields);
+app
+  .route(`${routeSource}/users`)
+  .get(authenticationJwt, async (req, res) => {
+    const user = req.user;
+    const exludedFields = {
+      username: 0,
+      _ct: 0,
+      _ac: 0,
+      __v: 0,
+    };
+    try {
+      let data = {};
+      if (user) {
+        data = await User.findById(user.id).select(exludedFields);
+      } else {
+        data = await User.find().select(exludedFields);
+      }
+      return res.status(200).send(data);
+    } catch (expection) {
+      console.log(expection);
+      res.status(500).send({ errorMsg: "Something went wrong!" });
     }
-    return res.status(200).send(data);
-  } catch (expection) {
-    console.log(expection);
-    res.status(500).send({ errorMsg: "Something went wrong!" });
-  }
-});
+  })
+  .put(authenticationJwt, async (req, res) => {
+    const user = req.user;
+    try {
+      if (user) {
+        await User.findByIdAndUpdate(user.id, {
+          $set: { ...req.body },
+        });
+      } else return res.status(402).send({ errorMsg: "Please relogin to the site" });
+      return res.status(201).send({});
+    } catch (expection) {
+      console.log(expection);
+      res.status(500).send({ errorMsg: "Something went wrong!" });
+    }
+  });
 
 function authenticationJwt(req, res, next) {
   const authHeader = req.headers["authorization"];
