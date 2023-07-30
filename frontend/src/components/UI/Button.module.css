@@ -24,6 +24,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  margin-top: 5px;
 }
 
 .addCartBtn:focus {

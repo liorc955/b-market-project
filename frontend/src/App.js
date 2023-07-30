@@ -1,5 +1,5 @@
 import "./App.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import RootLayout from "./pages/RootLayout";
 import { Suspense, lazy } from "react";
@@ -7,6 +7,12 @@ import PageLoading from "./components/UI/PageLoading";
 import { submitAction } from "./components/login/Login";
 import { checkAutLoader } from "./auth";
 import { checkOutPageLoader } from "./pages/CheckOutPage";
+import PersonalAreaPage, {
+  personalAreaLoader,
+} from "./pages/PersonalArea/PersonalAreaPage";
+import EditAddressPage from "./pages/PersonalArea/EditAddressPage";
+import EditUserPage from "./pages/PersonalArea/EditUserPage";
+import OrdersPage, { ordersLoader } from "./pages/PersonalArea/OrdersPage";
 
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CheckOutPage = lazy(() => import("./pages/CheckOutPage"));
@@ -51,6 +57,31 @@ const router = createBrowserRouter([
         ),
         action: submitAction,
         loader: checkAutLoader,
+      },
+      {
+        path: "personal-area",
+        element: <Outlet />,
+        loader: personalAreaLoader,
+        id: "personal",
+        children: [
+          {
+            index: true,
+            element: <PersonalAreaPage />,
+          },
+          {
+            path: "address",
+            element: <EditAddressPage />,
+          },
+          {
+            path: "userInfo",
+            element: <EditUserPage />,
+          },
+          {
+            path: "orders",
+            element: <OrdersPage />,
+            loader: ordersLoader
+          }
+        ],
       },
     ],
   },

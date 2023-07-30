@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import Button from "../UI/Button";
-import LoginFormInputs from "./../login/LoginFormInputs";
-import CheckOutFormInputs from "./CheckOutFormInputs";
 import { useState } from "react";
 import { SERVER_URL_AUTH } from "../../envConfig";
+import FormInputs from "../UI/FormInputs";
+import { addressInputs, loginInputs, userInputs } from "../../inputs";
 
 const GuestCheckOut = (props) => {
   const [errorMsgOnRegister, setErrorMsgOnRegister] = useState(null);
@@ -15,14 +15,16 @@ const GuestCheckOut = (props) => {
 
   const onSubmit = async (data) => {
     setErrorMsgOnRegister(null);
+
     const userAddress = {
       street: data.street,
       city: data.city,
       state: data.state,
       zipCode: data.zipCode,
     };
+
     try {
-      const response = await fetch(`${SERVER_URL_AUTH}/register`, {
+      const response = await fetch(`http://localhost:5000/auth/register`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -47,10 +49,19 @@ const GuestCheckOut = (props) => {
       <form className="form-group" onSubmit={handleSubmit(onSubmit)}>
         <div className="border-bottom mb-3 pb-3">
           <h6>Login information:</h6>
-          <LoginFormInputs errors={errors} register={register} />
+          <FormInputs
+            inputs={loginInputs}
+            errors={errors}
+            register={register}
+          />
         </div>
         <h6>Customer & address information:</h6>
-        <CheckOutFormInputs errors={errors} register={register} />
+        <FormInputs inputs={userInputs} errors={errors} register={register} />
+        <FormInputs
+          inputs={addressInputs}
+          errors={errors}
+          register={register}
+        />
         <div className="text-center">
           <Button disabled={isSubmitting}>Submit Order</Button>
           {(props.isErrorOnPost || errorMsgOnRegister) && (

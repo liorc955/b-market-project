@@ -42,17 +42,22 @@ app.post(`${routeSource}/register`, (req, res) => {
     user.password,
     parseInt(process.env.SALT_ROUNDS),
     function (err, passwordHas) {
-      if (err) res.status(500).send({ errorMsg: "Registration failed, please try again." });
+      if (err)
+        res
+          .status(500)
+          .send({ errorMsg: "Registration failed, please try again." });
       const newUser = new User({
         username: user.username,
         password: passwordHas,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        street: user.street,
-        city: user.city,
-        state: user.state,
-        zipCode: user.zipCode,
+        address: {
+          street: user.street,
+          city: user.city,
+          state: user.state,
+          zipCode: user.zipCode,
+        },
       });
       newUser
         .save()
@@ -72,7 +77,7 @@ app.post(`${routeSource}/register`, (req, res) => {
 });
 
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1h"});
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" });
 }
 
 const port = process.env.PORT || 5000;

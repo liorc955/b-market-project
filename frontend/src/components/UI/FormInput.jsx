@@ -9,6 +9,7 @@ const FormInput = (props) => {
     <div className="m-2">
       <label className="form-label">{labelName}</label>
       <input
+        defaultValue={props.defaultValue}
         className={`form-control ${
           errors[`${inputKeyName}`] &&
           `${classes["error-placeholder"]} border-danger`

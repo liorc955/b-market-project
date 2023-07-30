@@ -8,6 +8,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { getToken, removeToken } from "../auth";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Person2Icon from '@mui/icons-material/Person2';
 
 const MainNavigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,7 +29,7 @@ const MainNavigation = () => {
   const handleLogOutClick = () => {
     removeToken();
     navigate("/");
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -57,9 +58,14 @@ const MainNavigation = () => {
                 <LoginIcon /> Login
               </NavLink>
             ) : (
-              <NavLink onClick={handleLogOutClick} className={classes.link}>
-                <LogoutIcon /> Logout
-              </NavLink>
+              <>
+                <NavLink to="/personal-area" className={classes.link}>
+                  <Person2Icon />
+                </NavLink>
+                <NavLink onClick={handleLogOutClick} className={classes.link}>
+                  <LogoutIcon /> Logout
+                </NavLink>
+              </>
             )}
           </div>
           <CartButton expand={expand} />

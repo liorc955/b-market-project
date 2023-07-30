@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
 import Button from "../UI/Button";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Card from "./../UI/Card";
 import { Form, redirect, useActionData, useSubmit } from "react-router-dom";
 import Modal from "../UI/Modal";
 import PageLoading from "../UI/PageLoading";
 import { useEffect, useState } from "react";
 import { setExpirationTime, setToken } from "../../auth";
-import LoginFormInputs from "./LoginFormInputs";
 import { SERVER_URL_AUTH } from "../../envConfig";
+import FormInputs from "../UI/FormInputs";
+import { loginInputs } from "../../inputs";
 
 const Login = () => {
   const submit = useSubmit();
@@ -30,29 +30,29 @@ const Login = () => {
   };
 
   return (
-    <div className="mt-5 row d-flex justify-content-center">
-      <Card className="text-center col-md-6 col-xl-4">
+    <>
+      <div className="text-center">
         <AccountCircleIcon
           style={{ height: "100px", width: "100px", color: "#06f" }}
         />
-        <Form className="form-group" onSubmit={handleSubmit(onSubmit)}>
-          <LoginFormInputs errors={errors} register={register} />
-          <div className="text-center mt-3">
-            <Button disabled={isLoading}>Login</Button>
-          </div>
-        </Form>
-        {actionData && (
-          <div className="mt-3 alert alert-danger">
-            <span>{actionData.error}</span>
-          </div>
-        )}
-      </Card>
+      </div>
+      <Form className="form-group" onSubmit={handleSubmit(onSubmit)}>
+        <FormInputs inputs={loginInputs} errors={errors} register={register} />
+        <div className="text-center mt-3">
+          <Button disabled={isLoading}>Login</Button>
+        </div>
+      </Form>
+      {actionData && (
+        <div className="mt-3 alert alert-danger">
+          <span>{actionData.error}</span>
+        </div>
+      )}
       {isLoading && (
         <Modal>
           <PageLoading />
         </Modal>
       )}
-    </div>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import { redirect } from "react-router-dom";
+import { SERVER_URL_API } from "./envConfig";
 
 export const getToken = () => {
   const token = localStorage.getItem("token");
@@ -31,5 +32,21 @@ export const setExpirationTime = (expirationTime) => {
 export const checkAutLoader = () => {
   const token = getToken();
   if (token !== null) return redirect("/");
+  return null;
+};
+
+export const userLoader = async () => {
+  const token = getToken();
+  if (token) {
+    const response = await fetch(`${SERVER_URL_API}/users`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.errorMsg);
+    return data;
+  }
   return null;
 };
