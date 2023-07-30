@@ -24,7 +24,7 @@ const GuestCheckOut = (props) => {
     };
 
     try {
-      const response = await fetch(`http://localhost:5000/auth/register`, {
+      const response = await fetch(`${SERVER_URL_AUTH}/register`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

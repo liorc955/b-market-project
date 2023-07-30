@@ -9,6 +9,7 @@ import { setExpirationTime, setToken } from "../../auth";
 import { SERVER_URL_AUTH } from "../../envConfig";
 import FormInputs from "../UI/FormInputs";
 import { loginInputs } from "../../inputs";
+import ErrorBoxMsg from "./../UI/ErrorBoxMsg";
 
 const Login = () => {
   const submit = useSubmit();
@@ -40,13 +41,9 @@ const Login = () => {
         <FormInputs inputs={loginInputs} errors={errors} register={register} />
         <div className="text-center mt-3">
           <Button disabled={isLoading}>Login</Button>
+          {actionData && <ErrorBoxMsg errorMsg={actionData.error} />}
         </div>
       </Form>
-      {actionData && (
-        <div className="mt-3 alert alert-danger">
-          <span>{actionData.error}</span>
-        </div>
-      )}
       {isLoading && (
         <Modal>
           <PageLoading />

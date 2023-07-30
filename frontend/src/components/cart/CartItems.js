@@ -6,7 +6,7 @@ import Collapse from '@mui/material/Collapse';
 
 const CartItems = (props) => {
   const dispatch = useDispatch();
-  const totalAmount = useSelector((state) => state.totalAmount);
+  const totalAmount = useSelector((state) => state.cart.totalAmount);
   let CartItemsBody = (
     <ul className="ps-0 text-center">
       <h5>Loading Items...</h5>

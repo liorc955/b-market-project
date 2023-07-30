@@ -8,7 +8,7 @@ import { submitAction } from "./components/login/Login";
 import { checkAutLoader } from "./auth";
 import { checkOutPageLoader } from "./pages/CheckOutPage";
 import PersonalAreaPage, {
-  personalAreaLoader,
+  personalAreaLoader, updateUserAction,
 } from "./pages/PersonalArea/PersonalAreaPage";
 import EditAddressPage from "./pages/PersonalArea/EditAddressPage";
 import EditUserPage from "./pages/PersonalArea/EditUserPage";
@@ -71,10 +71,12 @@ const router = createBrowserRouter([
           {
             path: "address",
             element: <EditAddressPage />,
+            action: updateUserAction
           },
           {
             path: "userInfo",
             element: <EditUserPage />,
+            action: updateUserAction
           },
           {
             path: "orders",

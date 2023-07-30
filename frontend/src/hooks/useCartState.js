@@ -5,8 +5,8 @@ import { fetchItemsCart, updateItemsCart } from "../store/cart-slice";
 let componentDidMount = false;
 
 const useCartState = () => {
-  const items = useSelector((state) => state.itemsInCart);
-  const isCartStateChanged = useSelector((state) => state.isCartStateChanged);
+  const items = useSelector((state) => state.cart.itemsInCart);
+  const isCartStateChanged = useSelector((state) => state.cart.isCartStateChanged);
   const dispatch = useDispatch();
 
   useEffect(() => {

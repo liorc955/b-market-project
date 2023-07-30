@@ -1,18 +1,18 @@
 import { Link, json, redirect, useRouteLoaderData } from "react-router-dom";
-import { userLoader } from "../../auth";
+import { getToken, userLoader } from "../../auth";
 import classes from "./PersonalAreaPage.module.css";
 import PageContent from "../../components/UI/PageContent";
+import { SERVER_URL_API } from "../../envConfig";
 
 const PersonalAreaPage = () => {
-  const user = useRouteLoaderData("personal");
-
+  const userData = useRouteLoaderData("personal");
   const blackBorder = "border-bottom border-dark";
 
   return (
     <PageContent>
       <div className="m-2">
         <h3>
-          Hello {user.firstName} {user.lastName}👋
+          Hello {userData.firstName} {userData.lastName}👋
         </h3>
         <h4>Choose between the options:</h4>
         <ul className={`${classes["menu-container"]} px-1 mt-4`}>
@@ -43,4 +43,50 @@ export const personalAreaLoader = async () => {
   } catch (exception) {
     throw json({ message: exception.message }, { status: 500 });
   }
+};
+
+export const updateUserAction = async ({ request, params }) => {
+  const url = new URL(request.url);
+  const paths = url.pathname.split("/");
+  const lastPath = paths[paths.length - 1];
+  const data = await request.formData();
+  const token = getToken();
+  let payLoadData = {};
+
+  if (lastPath === "userInfo") {
+    payLoadData = {
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      email: data.get("email"),
+    };
+  }
+
+  if (lastPath === "address") {
+    payLoadData = {
+      address: {
+        city: data.get("city"),
+        state: data.get("state"),
+        street: data.get("street"),
+        zipCode: data.get("zipCode"),
+      },
+    };
+  }
+
+  try {
+    const response = await fetch(`${SERVER_URL_API}/users`, {
+      method: "PUT",
+      body: JSON.stringify(payLoadData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (response.status === 402) return { error: data.errorMsg };
+  } catch (expection) {
+    console.log(expection.message);
+    return { error: "Something went wrong!" };
+  }
+
+  return redirect("..");
 };
