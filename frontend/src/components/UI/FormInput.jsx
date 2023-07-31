@@ -22,6 +22,7 @@ const FormInput = (props) => {
             : `${labelName}`
         }`}
         type={props.type}
+        autoComplete={props.inputKeyName}
       />
     </div>
   );
