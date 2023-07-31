@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../UI/Button";
 import classes from "./UserCheckOut.module.css";
 
@@ -26,7 +27,7 @@ const UserCheckOut = (props) => {
       <h6>Should we countinue with the order?</h6>
       <div className="d-flex justify-content-between">
         <Button onClick={handleOnClick}>Submit Order</Button>
-        <Button>Edit Address</Button>
+        <Link to={"/personal-area/address"}><Button>Edit Address</Button></Link>
       </div>
       {props.isErrorOnPost && (
         <p className="text-danger text-center mt-2" role="alert">
