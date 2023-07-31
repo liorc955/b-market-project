@@ -13,7 +13,7 @@ const EditUserPage = () => {
   }));
 
   return (
-    <PageContent>
+    <PageContent title="Edit Account" description="Edit Account page">
       <h5>
         <AccountCircleIcon /> Your account information:
       </h5>

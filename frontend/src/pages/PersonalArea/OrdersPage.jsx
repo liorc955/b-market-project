@@ -7,7 +7,7 @@ const OrdersPage = () => {
   const orders = useLoaderData();
   console.log(orders);
   return (
-    <PageContent>
+    <PageContent title="Orders" description="Orders page">
       <h4> 🚚 Orders:</h4>
     </PageContent>
   );

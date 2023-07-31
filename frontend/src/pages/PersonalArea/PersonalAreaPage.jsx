@@ -9,7 +9,7 @@ const PersonalAreaPage = () => {
   const blackBorder = "border-bottom border-dark";
 
   return (
-    <PageContent>
+    <PageContent title="Personal Area" description="Personal Area page">
       <div className="m-2">
         <h3>
           Hello {userData.firstName} {userData.lastName}👋

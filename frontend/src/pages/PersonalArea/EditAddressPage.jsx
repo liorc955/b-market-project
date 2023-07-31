@@ -15,7 +15,7 @@ const EditAddressPage = () => {
   }));
 
   return (
-    <PageContent>
+    <PageContent title="Edit Address" description="Edit Address page">
       <h5>📮 Your address information: </h5>
       <EditForm inputs={inputs} />
     </PageContent>
