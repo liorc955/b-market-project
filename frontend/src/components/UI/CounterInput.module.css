@@ -14,4 +14,10 @@
   .input-group input:disabled {
     background-color: #ffffff;
   }
+
+  @media only screen and (max-width: 1829px) {
+    .input-group input {
+      text-align: center;
+    }
+  }
   

@@ -25,7 +25,7 @@ const UserCheckOut = (props) => {
         <span>ZipCode: {address.zipCode}</span>
       </p>
       <h6>Should we countinue with the order?</h6>
-      <div className="d-flex justify-content-between">
+      <div className="d-flex flex-wrap justify-content-between">
         <Button onClick={handleOnClick}>Submit Order</Button>
         <Link to={"/personal-area/address"}><Button>Edit Address</Button></Link>
       </div>

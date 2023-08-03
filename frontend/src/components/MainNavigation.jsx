@@ -8,7 +8,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { getToken, removeToken } from "../auth";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Person2Icon from '@mui/icons-material/Person2';
+import Person2Icon from "@mui/icons-material/Person2";
 
 const MainNavigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,25 +45,28 @@ const MainNavigation = () => {
       }`}
     >
       <Navbar key={expand} bg="light" expand={expand}>
-        <Container fluid>
+        <Container fluid className={classes.links}>
           <Offcanvas.Header>
-            <NavLink to="/" className={classes.brand + " " + classes.link}>
+            <NavLink to="/" className={classes.brand}>
               B-Market
             </NavLink>
           </Offcanvas.Header>
           <Offcanvas.Body />
           <div className="px-3 mb-1">
             {!isTokenExists ? (
-              <NavLink className={classes.link} to="/login">
-                <LoginIcon /> Login
+              <NavLink to="/login">
+                <LoginIcon />
+                <span>Login</span>
               </NavLink>
             ) : (
               <>
-                <NavLink to="/personal-area" className={classes.link}>
+                <NavLink to="/personal-area">
                   <Person2Icon />
+                  <span>Personal Area</span>
                 </NavLink>
-                <NavLink onClick={handleLogOutClick} className={classes.link}>
-                  <LogoutIcon /> Logout
+                <NavLink onClick={handleLogOutClick}>
+                  <LogoutIcon />
+                  <span>Logout</span>
                 </NavLink>
               </>
             )}

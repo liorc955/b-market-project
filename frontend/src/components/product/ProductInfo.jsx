@@ -5,7 +5,6 @@ import CounterInput from "../UI/CounterInput";
 import { useCallback, useRef } from "react";
 import Button from "../UI/Button";
 import { useDispatch } from "react-redux";
-import veganImg from "../../img/vegan.png";
 import { cartSliceActions } from "../../store/cart-slice";
 
 const ProductInfo = (props) => {
@@ -49,11 +48,6 @@ const ProductInfo = (props) => {
           <CounterInput inputRef={counterInputRef} />
           <Button onClick={addProductToCart}>Add To Cart</Button>
         </div>
-        <img
-          style={{ height: "80px", width: "80px" }}
-          alt="vegan product"
-          src={veganImg}
-        ></img>
       </Card>
     </div>
   );
