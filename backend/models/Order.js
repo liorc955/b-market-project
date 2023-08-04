@@ -16,6 +16,7 @@ const orderSchema = mongoose.Schema({
   products: {
     type: [productSchema],
   },
+  totalAmount: Number,
 });
 
 const Order = mongoose.models.order || mongoose.model("order", orderSchema);

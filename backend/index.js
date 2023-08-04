@@ -61,12 +61,24 @@ app.get(`${routeSource}/products/:id`, async (req, res) => {
 app
   .route(`${routeSource}/orders`)
   .post(async (req, res) => {
-    const { userId, products, userAddress, timeStamp } = req.body;
-    const order = new Order({
-      userId: userId,
+    const {
+      userId,
       products,
       userAddress,
       timeStamp,
+      quantity,
+      productId,
+      totalAmount,
+    } = req.body;
+
+    const order = new Order({
+      userId,
+      products,
+      userAddress,
+      timeStamp,
+      quantity,
+      productId,
+      totalAmount,
     });
 
     try {
@@ -123,7 +135,8 @@ app
         await User.findByIdAndUpdate(user.id, {
           $set: { ...req.body },
         });
-      } else return res.status(402).send({ errorMsg: "Please relogin to the site" });
+      } else
+        return res.status(402).send({ errorMsg: "Please relogin to the site" });
       return res.status(201).send({});
     } catch (expection) {
       console.log(expection);
