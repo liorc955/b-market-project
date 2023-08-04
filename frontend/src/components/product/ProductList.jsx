@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import classes from "./ProductList.module.css";
-import Error from "../UI/Error.js";
+import Error from "../UI/Error";
 import { SERVER_URL_API } from "../../envConfig";
 import ProductsLoading from "./ProductsLoading";
 
