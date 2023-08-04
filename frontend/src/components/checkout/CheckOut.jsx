@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItems from "../cart/CartItems";
 import Card from "../UI/Card";
 import Error from "../UI/Error";
@@ -22,6 +22,7 @@ const CheckOut = () => {
   const [isOrderUploading, setisOrderUploading] = useState(false);
   const dispatch = useDispatch();
   const userData = useLoaderData();
+  const totalAmount = useSelector((state) => state.cart.totalAmount);
 
   const postNewOrder = async (user) => {
     const orderPayLoad = {
@@ -29,6 +30,7 @@ const CheckOut = () => {
       userAddress: user.address,
       timeStamp: moment().format('MMMM Do YYYY, h:mm:ss a'),
       products: items,
+      totalAmount: totalAmount
     };
 
     try {
@@ -72,7 +74,7 @@ const CheckOut = () => {
       <h1 className="mb-4">Let's review what we have...&#128521;</h1>
       <div className={classes["checkout-container"]}>
         <Card className={classes["checkout-items"]}>
-          <CartItems items={items} isCheckOutPage={true} />
+          <CartItems items={items} disableEditing />
         </Card>
         <Card>{checkOutContainer}</Card>
       </div>

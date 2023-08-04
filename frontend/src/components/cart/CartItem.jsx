@@ -4,25 +4,25 @@ import ProductImg from "../product/ProductImg";
 const CartItem = (props) => {
   let counterBody = (
     <div className={classes.counter}>
-      <button disabled={props.isCheckOutPage} onClick={props.onAddItem}>
+      <button disabled={props.disableEditing} onClick={props.onAddItem}>
         +
       </button>
       <span>{props.quantity}</span>
-      <button disabled={props.isCheckOutPage} onClick={props.onRemoveItem}>
+      <button disabled={props.disableEditing} onClick={props.onRemoveItem}>
         -
       </button>
     </div>
   );
-  if (props.isCheckOutPage) {
+  if (props.disableEditing) {
     counterBody = <span> Amount: {props.quantity}</span>;
   }
 
   return (
     <li className={classes.item}>
-      <ProductImg alt={props.title} src={props.image}/>
+      <ProductImg alt={props.title} src={props.image} />
       <div>
         <h5>{props.title}</h5>
-        {props.isCheckOutPage && <span>{props.description}</span>}
+        {props.disableEditing && <span>{props.description}</span>}
         <span>Price: {props.price}$</span>
         {counterBody}
       </div>

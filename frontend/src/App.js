@@ -7,17 +7,24 @@ import PageLoading from "./components/UI/PageLoading";
 import { submitAction } from "./components/login/Login";
 import { checkAutLoader } from "./auth";
 import { checkOutPageLoader } from "./pages/CheckOutPage";
-import PersonalAreaPage, {
-  personalAreaLoader, updateUserAction,
+import {
+  personalAreaLoader,
+  updateUserAction,
 } from "./pages/PersonalArea/PersonalAreaPage";
-import EditAddressPage from "./pages/PersonalArea/EditAddressPage";
-import EditUserPage from "./pages/PersonalArea/EditUserPage";
-import OrdersPage, { ordersLoader } from "./pages/PersonalArea/OrdersPage";
+import { ordersLoader } from "./pages/PersonalArea/OrdersPage";
 
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CheckOutPage = lazy(() => import("./pages/CheckOutPage"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
+const PersonalAreaPage = lazy(() =>
+  import("./pages/PersonalArea/PersonalAreaPage")
+);
+const EditAddressPage = lazy(() =>
+  import("./pages/PersonalArea/EditAddressPage")
+);
+const EditUserPage = lazy(() => import("./pages/PersonalArea/EditUserPage"));
+const OrdersPage = lazy(() => import("./pages/PersonalArea/OrdersPage"));
 
 const loadingContent = <PageLoading />;
 
@@ -66,23 +73,39 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <PersonalAreaPage />,
+            element: (
+              <Suspense fallback={loadingContent}>
+                <PersonalAreaPage />
+              </Suspense>
+            ),
           },
           {
             path: "address",
-            element: <EditAddressPage />,
-            action: updateUserAction
+            element: (
+              <Suspense fallback={loadingContent}>
+                <EditAddressPage />
+              </Suspense>
+            ),
+            action: updateUserAction,
           },
           {
             path: "userInfo",
-            element: <EditUserPage />,
-            action: updateUserAction
+            element: (
+              <Suspense fallback={loadingContent}>
+                <EditUserPage />
+              </Suspense>
+            ),
+            action: updateUserAction,
           },
           {
             path: "orders",
-            element: <OrdersPage />,
-            loader: ordersLoader
-          }
+            element: (
+              <Suspense fallback={loadingContent}>
+                <OrdersPage />
+              </Suspense>
+            ),
+            loader: ordersLoader,
+          },
         ],
       },
     ],

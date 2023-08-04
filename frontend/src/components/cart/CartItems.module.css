@@ -1,0 +1,15 @@
+.items {
+    list-style-type: none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: scroll;
+  }
+  
+  .items::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  .items::-webkit-scrollbar-thumb {
+    background-color: #adadad;
+  }
+  
