@@ -37,7 +37,7 @@ export const checkAutLoader = () => {
 
 export const userLoader = async () => {
   const token = getToken();
-  if (token) {
+  if (token && token !== "EXPIRED") {
     const response = await fetch(`${SERVER_URL_API}/users`, {
       method: "GET",
       headers: {

@@ -38,7 +38,7 @@ export default OrdersPage;
 
 export const ordersLoader = async () => {
   const token = getToken();
-  if (token) {
+  if (token && token !== "EXPIRED") {
     try {
       const response = await fetch(`${SERVER_URL_API}/orders`, {
         method: "GET",

@@ -3,9 +3,15 @@ import { json, redirect, useNavigate } from "react-router-dom";
 import CheckOut from "../components/checkout/CheckOut";
 import Head from "../components/Head";
 import { userLoader } from "../auth";
+import useLoading from "./../hooks/useLoading";
+import PageLoading from "../components/UI/PageLoading";
+import Modal from "../components/UI/Modal";
+import SessionExpired from "./../components/UI/SessionExpired";
+import Card from "../components/UI/Card";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();
+  const [isLoading, isSessionExpired] = useLoading();
 
   useEffect(() => {
     return () => {
@@ -17,6 +23,18 @@ const CheckOutPage = () => {
     <>
       <Head title="CheckOut" description="CheckOut page" />
       <CheckOut />
+      {isLoading && (
+        <Modal>
+          <PageLoading />
+        </Modal>
+      )}
+      {isSessionExpired && (
+        <Modal>
+          <Card>
+            <SessionExpired />
+          </Card>
+        </Modal>
+      )}
     </>
   );
 };
@@ -29,6 +47,6 @@ export const checkOutPageLoader = async () => {
     const data = await userLoader();
     return data;
   } catch (exception) {
-    throw json({message: exception.message}, {status: 500});
+    throw json({ message: exception.message }, { status: 500 });
   }
 };

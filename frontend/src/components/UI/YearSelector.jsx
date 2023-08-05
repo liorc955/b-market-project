@@ -10,8 +10,6 @@ const YearSelector = (props) => {
   let ordersYears = props.orders.map((order) => extractYear(order.timeStamp));
   ordersYears = [...new Set(ordersYears)];
 
-  
-
   return (
     <Form.Select
       {...(props.className ? { className: props.className } : {})}
