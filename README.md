@@ -15,6 +15,7 @@ Backend:
 - ExpressJs
 - NodeJS
 - MongoDB
+- Redis
     
 ## Run Locally
 
