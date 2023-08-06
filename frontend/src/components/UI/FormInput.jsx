@@ -11,7 +11,7 @@ const FormInput = (props) => {
       <label className="form-label">{labelName}</label>
       <input
         defaultValue={props.defaultValue}
-        className={`form-control${
+        className={`form-control ${classes['input-field']}${
           errorMsg ?
           ` ${classes["error-placeholder"]} border-danger` : ""
         }`}
@@ -24,6 +24,7 @@ const FormInput = (props) => {
         }`}
         type={props.type}
         autoComplete={props.inputKeyName}
+        disabled={props.disabled}
       />
     </div>
   );

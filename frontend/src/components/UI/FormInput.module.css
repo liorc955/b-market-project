@@ -1,4 +1,8 @@
 .error-placeholder::placeholder {
-    color: red !important;
-    opacity: 1;
-  }
+  color: red !important;
+  opacity: 1;
+}
+
+.input-field:disabled {
+  background: white !important;
+}

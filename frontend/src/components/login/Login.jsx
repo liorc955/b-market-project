@@ -38,7 +38,12 @@ const Login = () => {
         />
       </div>
       <Form className="form-group" onSubmit={handleSubmit(onSubmit)}>
-        <FormInputs inputs={loginInputs} errors={errors} register={register} />
+        <FormInputs
+          disabled={isLoading}
+          inputs={loginInputs}
+          errors={errors}
+          register={register}
+        />
         <div className="text-center mt-3">
           <Button disabled={isLoading}>Login</Button>
           {actionData && <ErrorBoxMsg errorMsg={actionData.error} />}

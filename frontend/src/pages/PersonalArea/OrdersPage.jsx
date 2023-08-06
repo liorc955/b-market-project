@@ -5,6 +5,7 @@ import { SERVER_URL_API } from "../../envConfig";
 import UserOrderList from "../../components/order/UserOrderList";
 import { useCallback, useState } from "react";
 import YearSelector, { extractYear } from "../../components/UI/YearSelector";
+import noOrdersImg from "./../../img/no-orders.png";
 
 const OrdersPage = () => {
   const orders = useLoaderData();
@@ -21,15 +22,33 @@ const OrdersPage = () => {
     setOrderYear(parseInt(event.target.value));
   }, []);
 
+  let content = (
+    <div className="text-center m-4">
+      <h4>Seems like you don't have any orders yet!</h4>
+      <img src={noOrdersImg} style={{ width: "100%" }} alt="No orders logo" />
+      <p className="mt-2">
+        Why not treat yourself and make a delightful purchase today?
+      </p>
+    </div>
+  );
+
+  if (orders.length > 0) {
+    content = (
+      <>
+        <h4> 🚚 Your Orders:</h4>
+        <YearSelector
+          className="mb-2 mt-3"
+          orders={orders}
+          handleOnChange={handleOnChange}
+        />
+        <UserOrderList orders={filteredOrders} />
+      </>
+    );
+  }
+
   return (
     <PageContent title="Orders" description="Orders page">
-      <h4> 🚚 Orders:</h4>
-      <YearSelector
-        className="mb-2 mt-3"
-        orders={orders}
-        handleOnChange={handleOnChange}
-      />
-      <UserOrderList orders={filteredOrders} />
+      {content}
     </PageContent>
   );
 };

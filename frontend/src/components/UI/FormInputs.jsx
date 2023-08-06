@@ -13,6 +13,7 @@ const FormInputs = (props) => {
           type={inputElement.type}
           inputKeyName={inputElement.keyName}
           labelName={inputElement.labelName}
+          disabled={props.disabled}
         />
       ))}
     </>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SERVER_URL_AUTH } from "../../envConfig";
 import FormInputs from "../UI/FormInputs";
 import { addressInputs, loginInputs, userInputs } from "../../inputs";
+import ErrorBoxMsg from "./../UI/ErrorBoxMsg";
 
 const GuestCheckOut = (props) => {
   const [errorMsgOnRegister, setErrorMsgOnRegister] = useState(null);
@@ -65,9 +66,11 @@ const GuestCheckOut = (props) => {
         <div className="text-center">
           <Button disabled={isSubmitting}>Submit Order</Button>
           {(props.isErrorOnPost || errorMsgOnRegister) && (
-            <p className="text-danger mt-2" role="alert">
-              {props.isErrorOnPost ? "Please Try Again" : errorMsgOnRegister}
-            </p>
+            <ErrorBoxMsg
+              errorMsg={
+                props.isErrorOnPost ? "Please Try Again" : errorMsgOnRegister
+              }
+            />
           )}
         </div>
       </form>

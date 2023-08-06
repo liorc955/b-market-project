@@ -6,6 +6,7 @@ const { User } = require("./models/User");
 const app = express();
 require("./db");
 const jwt = require("jsonwebtoken");
+const redisClient = require("./redis");
 
 app.use(cors());
 app.use(express.json());
@@ -16,9 +17,10 @@ app.get("/", (req, res) => {
 
 const routeSource = "/api";
 
-app.get(`${routeSource}/products`, async (req, res) => {
+app.get(`${routeSource}/products`, chace, async (req, res) => {
   try {
     const data = await Product.find();
+    redisClient.setEx(req.path, 20, JSON.stringify(data));
     return res.status(200).json(data);
   } catch (expection) {
     console.log(expection.message);
@@ -157,6 +159,17 @@ function authenticationJwt(req, res, next) {
     req.user = user;
     next();
   });
+}
+
+async function chace(req, res, next) {
+  try {
+    const data = await redisClient.get(req.path);
+    if (data !== null) return res.status(200).send(await JSON.parse(data));
+    next();
+  } catch (expection) {
+    console.log(expection);
+    next();
+  }
 }
 
 const port = process.env.PORT || 8080;
