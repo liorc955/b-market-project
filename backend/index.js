@@ -20,7 +20,7 @@ const routeSource = "/api";
 app.get(`${routeSource}/products`, chace, async (req, res) => {
   try {
     const data = await Product.find();
-    redisClient.setEx(req.path, 20, JSON.stringify(data));
+    redisClient.setEx(req.path, 3600, JSON.stringify(data));
     return res.status(200).json(data);
   } catch (expection) {
     console.log(expection.message);
