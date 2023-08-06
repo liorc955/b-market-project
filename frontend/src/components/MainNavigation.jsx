@@ -40,8 +40,8 @@ const MainNavigation = () => {
 
   return (
     <div
-      className={`position-fixed top-0 start-0 end-0 ${classes.header} ${
-        isScrolled ? "shadow" : ""
+      className={`position-fixed top-0 start-0 end-0 ${classes.header}${
+        isScrolled ? " shadow" : ""
       }`}
     >
       <Navbar key={expand} bg="light" expand={expand}>

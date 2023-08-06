@@ -23,7 +23,7 @@ const UserCheckOut = (props) => {
       <h6>Should we countinue with the order?</h6>
       <div className="d-flex flex-wrap justify-content-between">
         <Button onClick={handleOnClick}>Submit Order</Button>
-        <Link to={"/personal-area/address"}>
+        <Link className="text-decoration-none" to={"/personal-area/address"}>
           <Button>Edit Address</Button>
         </Link>
       </div>
