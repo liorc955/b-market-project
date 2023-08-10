@@ -12,6 +12,12 @@ const corsOptions = {
   credentials: true,
 };
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+};
+
 app.use(express.json());
 app.use(cors(corsOptions));
 
@@ -34,9 +40,7 @@ app.post(`${routeSource}/login`, (req, res) => {
             res
               .status(200)
               .cookie("accessToken", token, {
-                httpOnly: true,
-                secure: true,
-                sameSite: "none",
+                ...cookieOptions,
                 maxAge: expiredNumberTime,
               })
               .send({});
@@ -92,7 +96,7 @@ app.post(`${routeSource}/register`, (req, res) => {
 });
 
 app.get(`${routeSource}/logout`, (req, res) => {
-  res.clearCookie("accessToken");
+  res.clearCookie("accessToken", cookieOptions);
   res.sendStatus(200);
 });
 
