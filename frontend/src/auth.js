@@ -1,16 +1,15 @@
 import { redirect } from "react-router-dom";
-import { SERVER_URL_API } from "./envConfig";
+import { SERVER_URL_API, SERVER_URL_AUTH } from "./envConfig";
 
-export const getToken = () => {
-  const token = localStorage.getItem("token");
-  if (!token || token === undefined) return null;
+export const getTokenExpiration = () => {
+  const isTokenExpired = localStorage.getItem("expiration");
+  if (!isTokenExpired || isTokenExpired === undefined) return null;
   const expirationTime = getTokenDuration();
   if (expirationTime < 0) return "EXPIRED";
-  return token;
+  return true;
 };
 
-export const removeToken = () => {
-  localStorage.removeItem("token");
+export const removeTokenExpiration = () => {
   localStorage.removeItem("expiration");
 };
 
@@ -21,28 +20,22 @@ export const getTokenDuration = () => {
   return duration;
 };
 
-export const setToken = (token) => {
-  localStorage.setItem("token", token);
-};
-
 export const setExpirationTime = (expirationTime) => {
   localStorage.setItem("expiration", expirationTime);
 };
 
 export const checkAutLoader = () => {
-  const token = getToken();
-  if (token !== null) return redirect("/");
+  const tokenExpiration = getTokenExpiration();
+  if (tokenExpiration !== null) return redirect("/");
   return null;
 };
 
 export const userLoader = async () => {
-  const token = getToken();
-  if (token && token !== "EXPIRED") {
+  const tokenExpiration = getTokenExpiration();
+  if (tokenExpiration) {
     const response = await fetch(`${SERVER_URL_API}/users`, {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      credentials: "include",
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.errorMsg);
@@ -50,3 +43,15 @@ export const userLoader = async () => {
   }
   return null;
 };
+
+export const logOut = async () => {
+  try {
+    const response = await fetch(`${SERVER_URL_AUTH}/logout`, {
+      method: "GET",
+      credentials: "include",
+    })
+    if (!response.ok) throw new Error();
+  } catch (expection) {
+    console.log(expection);
+  }
+}

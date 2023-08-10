@@ -1,5 +1,5 @@
 import { json, redirect, useLoaderData } from "react-router-dom";
-import { getToken } from "../../auth";
+import { getTokenExpiration } from "../../auth";
 import PageContent from "../../components/UI/PageContent";
 import { SERVER_URL_API } from "../../envConfig";
 import UserOrderList from "../../components/order/UserOrderList";
@@ -56,14 +56,12 @@ const OrdersPage = () => {
 export default OrdersPage;
 
 export const ordersLoader = async () => {
-  const token = getToken();
-  if (token && token !== "EXPIRED") {
+  const tokenExpiration = getTokenExpiration();
+  if (tokenExpiration) {
     try {
       const response = await fetch(`${SERVER_URL_API}/orders`, {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        credentials: "include",
       });
       if (!response.ok)
         throw new Error("Cound not fetch orders for this user token.");

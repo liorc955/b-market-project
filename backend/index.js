@@ -8,7 +8,12 @@ require("./db");
 const jwt = require("jsonwebtoken");
 const redisClient = require("./redis");
 
-app.use(cors());
+const corsOptions = {
+  origin: true,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -147,8 +152,8 @@ app
   });
 
 function authenticationJwt(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const authHeader = req.headers.cookie;
+  const token = authHeader && authHeader.split("=")[1];
   if (token === undefined) {
     req.user = 0;
     next();

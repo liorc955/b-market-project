@@ -6,13 +6,13 @@ import classes from "./MainNavigation.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { getToken, removeToken } from "../auth";
+import { getTokenExpiration, logOut, removeTokenExpiration } from "../auth";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Person2Icon from "@mui/icons-material/Person2";
 
 const MainNavigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const isTokenExists = getToken();
+  const tokenExpiration = getTokenExpiration();
   const navigate = useNavigate();
 
   const handleScroll = useCallback(() => {
@@ -26,8 +26,9 @@ const MainNavigation = () => {
 
   const expand = false;
 
-  const handleLogOutClick = () => {
-    removeToken();
+  const handleLogOutClick = async () => {
+    removeTokenExpiration();
+    await logOut();
     navigate("/");
   };
 
@@ -53,7 +54,7 @@ const MainNavigation = () => {
           </Offcanvas.Header>
           <Offcanvas.Body />
           <div className="px-3 mb-1">
-            {!isTokenExists ? (
+            {!tokenExpiration ? (
               <NavLink to="/login">
                 <LoginIcon />
                 <span>Login</span>

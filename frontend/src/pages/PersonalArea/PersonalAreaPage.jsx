@@ -1,5 +1,5 @@
 import { Link, json, redirect, useRouteLoaderData } from "react-router-dom";
-import { getToken, userLoader } from "../../auth";
+import { userLoader } from "../../auth";
 import classes from "./PersonalAreaPage.module.css";
 import PageContent from "../../components/UI/PageContent";
 import { SERVER_URL_API } from "../../envConfig";
@@ -50,7 +50,6 @@ export const updateUserAction = async ({ request, params }) => {
   const paths = url.pathname.split("/");
   const lastPath = paths[paths.length - 1];
   const data = await request.formData();
-  const token = getToken();
   let payLoadData = {};
 
   if (lastPath === "userInfo") {
@@ -76,9 +75,9 @@ export const updateUserAction = async ({ request, params }) => {
     const response = await fetch(`${SERVER_URL_API}/users`, {
       method: "PUT",
       body: JSON.stringify(payLoadData),
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
     });
     const data = await response.json();

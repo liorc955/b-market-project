@@ -7,8 +7,13 @@ require("./db");
 const bcrypt = require("bcrypt");
 const { User } = require("./models/User");
 
+const corsOptions = {
+  origin: true,
+  credentials: true,
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 const routeSource = "/auth";
 
@@ -24,7 +29,16 @@ app.post(`${routeSource}/login`, (req, res) => {
               username: foundUser.username,
               id: foundUser._id,
             };
-            res.status(200).send({ accessToken: generateAccessToken(user) });
+            const token = generateAccessToken(user);
+            const expiredNumberTime = 3600000;
+            res
+              .status(200)
+              .cookie("accessToken", token, {
+                httpOnly: true,
+                secure: true,
+                maxAge: expiredNumberTime,
+              })
+              .send({});
           } else res.status(401).send({ errorMsg });
         });
       } else {
@@ -74,6 +88,11 @@ app.post(`${routeSource}/register`, (req, res) => {
         });
     }
   );
+});
+
+app.get(`${routeSource}/logout`, (req, res) => {
+  res.clearCookie("accessToken");
+  res.sendStatus(200);
 });
 
 function generateAccessToken(user) {
