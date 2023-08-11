@@ -16,10 +16,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("<h1>The server is up and running!</h1>");
-});
-
 const routeSource = "/api";
 
 app.get(`${routeSource}/products`, chace, async (req, res) => {
@@ -43,30 +39,17 @@ app.get(`${routeSource}/products/:id`, async (req, res) => {
   }
 });
 
-// app.put(`${routeSource}/cartitems`, async (req, res) => {
-//   const cartItems = req.body;
-//   try {
-//     await Cart.deleteMany({});
-//     await Cart.insertMany(cartItems);
-//     return res.sendStatus(201);
-//   } catch (expection) {
-//     console.log(expection.message);
-//     throw res.sendStatus(500);
-//   }
-// });
-
-// app.get(`${routeSource}/cartitems`, async (req, res) => {
-//   try {
-//     const data = await Cart.find({}, { _id: 0 });
-//     return res.status(200).json(data);
-//   } catch (expection) {
-//     console.log(expection.message);
-//     throw res.status(500);
-//   }
-// });
-
 app
-  .route(`${routeSource}/orders`)
+  .route(`${routeSource}/users/orders`)
+  .get(authenticationJwt, async (req, res) => {
+    try {
+      data = await Order.find();
+      res.status(200).send(data);
+    } catch (expection) {
+      console.log(expection);
+      res.sendStatus(500);
+    }
+  })
   .post(async (req, res) => {
     const {
       userId,
@@ -95,25 +78,25 @@ app
       console.log(expection.message);
       throw res.sendStatus(500);
     }
-  })
-  .get(authenticationJwt, async (req, res) => {
+  });
+
+app.get(
+  `${routeSource}/users/user/orders`,
+  authenticationJwt,
+  async (req, res) => {
     const user = req.user;
-    let data = {};
     try {
-      if (user) {
-        data = await Order.find({ userId: user.id });
-      } else {
-        data = await Order.find();
-      }
+      const data = await Order.find({ userId: user.id });
       res.status(200).send(data);
     } catch (expection) {
       console.log(expection);
       res.sendStatus(500);
     }
-  });
+  }
+);
 
 app
-  .route(`${routeSource}/users`)
+  .route(`${routeSource}/users/user`)
   .get(authenticationJwt, async (req, res) => {
     const user = req.user;
     const exludedFields = {
@@ -123,12 +106,7 @@ app
       __v: 0,
     };
     try {
-      let data = {};
-      if (user) {
-        data = await User.findById(user.id).select(exludedFields);
-      } else {
-        data = await User.find().select(exludedFields);
-      }
+      const data = await User.findById(user.id).select(exludedFields);
       return res.status(200).send(data);
     } catch (expection) {
       console.log(expection);
@@ -138,12 +116,10 @@ app
   .put(authenticationJwt, async (req, res) => {
     const user = req.user;
     try {
-      if (user) {
-        await User.findByIdAndUpdate(user.id, {
-          $set: { ...req.body },
-        });
-      } else
-        return res.status(402).send({ errorMsg: "Please relogin to the site" });
+      await User.findByIdAndUpdate(user.id, {
+        $set: { ...req.body },
+      });
+
       return res.status(201).send({});
     } catch (expection) {
       console.log(expection);
@@ -151,16 +127,29 @@ app
     }
   });
 
+app.get(`${routeSource}/users`, authenticationJwt, async (req, res) => {
+  const exludedFields = {
+    username: 0,
+    _ct: 0,
+    _ac: 0,
+    __v: 0,
+  };
+  try {
+    const data = await User.find().select(exludedFields);
+    return res.status(200).send(data);
+  } catch (expection) {
+    console.log(expection);
+    res.status(500).send({ errorMsg: "Something went wrong!" });
+  }
+});
+
 function authenticationJwt(req, res, next) {
   const authHeader = req.headers.cookie;
   const token = authHeader && authHeader.split("=")[1];
-  if (token === undefined) {
-    req.user = 0;
-    next();
-    return null;
-  }
+  if (token === undefined)
+    return res.status(401).send({ errorMsg: "No token provided" });
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
-    if (error) return res.status(403).send({ errorMsg: "Unauthorized!" });
+    if (error) return res.status(403).send({ errorMsg: "Access denied" });
     req.user = user;
     next();
   });

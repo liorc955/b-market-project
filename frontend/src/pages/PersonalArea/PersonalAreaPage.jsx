@@ -72,7 +72,7 @@ export const updateUserAction = async ({ request, params }) => {
   }
 
   try {
-    const response = await fetch(`${SERVER_URL_API}/users`, {
+    const response = await fetch(`${SERVER_URL_API}/users/user`, {
       method: "PUT",
       body: JSON.stringify(payLoadData),
       credentials: "include",

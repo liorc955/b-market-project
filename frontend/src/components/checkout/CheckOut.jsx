@@ -36,7 +36,7 @@ const CheckOut = () => {
     try {
       setIsThereErrorOnPost(false);
       setisOrderUploading(true);
-      const response = await fetch(`${SERVER_URL_API}/orders`, {
+      const response = await fetch(`${SERVER_URL_API}/users/orders`, {
         method: "POST",
         body: JSON.stringify(orderPayLoad),
         headers: {
