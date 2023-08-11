@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmarket_project=self.webpackChunkmarket_project||[]).push([[637],{3637:function(e,t,c){c.r(t);var n=c(853),r=c(5408),s=c(184);t.default=function(){return(0,s.jsx)("div",{className:"container mt-4",children:(0,s.jsxs)(n.Z,{title:"Login",description:"Login page",children:[(0,s.jsx)("h2",{className:"col-md-8 col-xl-6 text-center mx-auto",children:"Log in"}),(0,s.jsx)(r.Z,{})]})})}}}]);
+//# sourceMappingURL=637.5d5ccea1.chunk.js.map
