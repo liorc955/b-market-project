@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/(.*)",
+      "destination": "/frontend/src/index.js"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/backend/index.js"
     },
