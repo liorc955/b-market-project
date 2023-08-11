@@ -12,7 +12,7 @@
 
   "builds": [
     {
-      "src": "frontend/index.js",
+      "src": "frontend/",
       "use": "@vercel/react"
     },
     {
