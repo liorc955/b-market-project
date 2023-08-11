@@ -1,0 +1,27 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "backend/index.js"
+    },
+    {
+      "source": "/auth/(.*)",
+      "destination": "backend/auth.js"
+    }
+  ],
+
+  "builds": [
+    {
+      "src": "frontend/index.js",
+      "use": "@vercel/react"
+    },
+    {
+      "src": "backend/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "backend/auth.js",
+      "use": "@vercel/node"
+    }
+  ]
+}
