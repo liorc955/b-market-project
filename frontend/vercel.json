@@ -2,21 +2,21 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "../../backend/index.js"
+      "destination": "../backend/index.js"
     },
     {
       "source": "/auth/(.*)",
-      "destination": "../../backend/auth.js"
+      "destination": "../backend/auth.js"
     }
   ],
 
   "builds": [
     {
-      "src": "../../backend/index.js",
+      "src": "../backend/index.js",
       "use": "@vercel/node"
     },
     {
-      "src": "../../backend/auth.js",
+      "src": "../backend/auth.js",
       "use": "@vercel/node"
     }
   ]
